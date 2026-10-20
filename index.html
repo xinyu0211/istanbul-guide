@@ -1,0 +1,1285 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="伊斯坦布尔手册">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+</style>
+<title>伊斯坦布尔初访手册</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;900&display=swap">
+<style>
+/* Layout: one phone-width column; İznik-tile band under the header, cobalt Istanbul street-plate names, a schematic Bosphorus map for distances. */
+:root{
+  --bg:#EEF1F5; --surface:#FFFFFF; --surface-2:#E1E6EE; --ink:#16202E; --muted:#5A6576; --line:#D2D9E3;
+  --red:#B83A2B; --blue:#1F4E9C; --turq:#1B8A8C; --ok:#2B7A4B; --warn:#995800; --bad:#B3261E;
+  --sign-bg:#1E4A9A; --sign-fg:#FFFFFF; --plate:#1B8A8C; --plate-fg:#FFFFFF;
+  --river:#B7CDE3; --map-bg:#E6E9EE; --map-ink:#7C8696;
+  --lt1:#2B66B1; --lt2:#159447; --lt3:#6B7686;
+  --sky:#DCE6F0; --stone:#F2EEE6; --stone-2:#CFC6B5; --shade:#9F9684; --dome:#8293A5; --roof:#9C4A36; --hill:#9DB096; --night:#1C2B42; --star:#F2D488; --tile:#1B8A8C;
+  --f-display:"Noto Serif SC","Songti SC",serif;
+  --f-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --f-sign:"Barlow Condensed","Arial Narrow","Roboto Condensed",sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#10151D; --surface:#19202B; --surface-2:#242D3A; --ink:#E8EDF4; --muted:#A0AABA; --line:#2F3946;
+  --red:#F0806E; --blue:#8DB2EE; --turq:#5CC3C4; --ok:#63C48E; --warn:#E5A445; --bad:#FF7B72;
+  --sign-bg:#2A5BB0; --sign-fg:#FFFFFF; --plate:#238F91; --plate-fg:#FFFFFF;
+  --river:#1D3550; --map-bg:#151B24; --map-ink:#7A8494;
+  --lt1:#4A84CF; --lt2:#2DB062; --lt3:#8A94A4;
+  --sky:#1C2A3A; --stone:#D9D3C7; --stone-2:#A69D8B; --shade:#6D6657; --dome:#6A7B8E; --roof:#A35540; --hill:#3D5444; --night:#0C1626; --star:#E9C870; --tile:#2A9A9C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#10151D; --surface:#19202B; --surface-2:#242D3A; --ink:#E8EDF4; --muted:#A0AABA; --line:#2F3946;
+  --red:#F0806E; --blue:#8DB2EE; --turq:#5CC3C4; --ok:#63C48E; --warn:#E5A445; --bad:#FF7B72;
+  --sign-bg:#2A5BB0; --sign-fg:#FFFFFF; --plate:#238F91; --plate-fg:#FFFFFF;
+  --river:#1D3550; --map-bg:#151B24; --map-ink:#7A8494;
+  --lt1:#4A84CF; --lt2:#2DB062; --lt3:#8A94A4;
+  --sky:#1C2A3A; --stone:#D9D3C7; --stone-2:#A69D8B; --shade:#6D6657; --dome:#6A7B8E; --roof:#A35540; --hill:#3D5444; --night:#0C1626; --star:#E9C870; --tile:#2A9A9C; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.65;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0;line-height:1.3}
+p{margin:0}
+a{color:var(--blue)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:6px}
+.num{font-family:var(--f-sign);font-variant-numeric:tabular-nums}
+
+/* header with İznik tile band */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--surface)}
+.top::after{content:"";display:block;height:8px;background:
+  radial-gradient(circle at 50% 50%,var(--red) 0 1.6px,transparent 2px) 0 0/16px 8px,
+  linear-gradient(45deg,transparent 42%,var(--turq) 42% 58%,transparent 58%) 0 0/16px 8px,
+  linear-gradient(-45deg,transparent 42%,var(--turq) 42% 58%,transparent 58%) 0 0/16px 8px,var(--sign-bg)}
+.top-in{max-width:680px;margin:0 auto;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;flex-direction:column;min-width:0}
+.brand h1{font-size:19px;font-weight:900;letter-spacing:.02em}
+.brand span{font-size:11px;color:var(--muted);letter-spacing:.08em;font-family:var(--f-sign);text-transform:uppercase}
+.hotel-chip{display:flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:6px 12px 6px 9px;font-size:13px;cursor:pointer;min-width:0;max-width:56%}
+.hotel-chip svg{flex:none}
+.hotel-chip b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hotel-chip.example b{color:var(--muted)}
+
+main{max-width:680px;margin:0 auto;padding-block:16px calc(96px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+section.tab{display:flex;flex-direction:column;gap:16px}
+.sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-top:8px}
+.sec-h h2{font-size:22px;font-weight:900}
+.sec-h small{color:var(--muted);font-size:12px}
+.lead{color:var(--muted);font-size:14px}
+
+.chips{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;margin-inline:-2px;padding-inline:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:14px;cursor:pointer;white-space:nowrap}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.toggle{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);cursor:pointer;user-select:none}
+.toggle input{appearance:none;width:38px;height:22px;border-radius:999px;background:var(--surface-2);border:1px solid var(--line);position:relative;cursor:pointer;flex:none;margin:0}
+.toggle input::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--muted);transition:transform .15s}
+.toggle input:checked{background:var(--blue);border-color:var(--blue)}
+.toggle input:checked::after{transform:translateX(16px);background:var(--surface)}
+
+.rules{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px}
+.rules h3{font-size:16px}
+.rules ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.meter{display:flex;flex-direction:column;gap:6px;margin-top:4px}
+.meter-label{font-size:12px;color:var(--muted)}
+.meter-bar{display:grid;grid-template-columns:2fr 2fr 2fr;border-radius:8px;overflow:hidden;font-size:12px;text-align:center;line-height:1.3}
+.meter-bar div{padding:6px 4px}
+.meter-bar .m1{background:color-mix(in srgb,var(--ok) 22%,var(--surface))}
+.meter-bar .m2{background:color-mix(in srgb,var(--warn) 22%,var(--surface))}
+.meter-bar .m3{background:color-mix(in srgb,var(--bad) 24%,var(--surface))}
+.meter-bar b{display:block;font-family:var(--f-sign);font-size:15px}
+
+.list{display:flex;flex-direction:column;gap:12px}
+.place{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.place-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.sign{display:inline-block;background:var(--sign-bg);color:var(--sign-fg);font-family:var(--f-sign);font-weight:700;font-size:19px;line-height:1.15;letter-spacing:.04em;text-transform:uppercase;padding:6px 12px 5px;border-radius:6px;box-shadow:inset 0 0 0 3px var(--sign-bg),inset 0 0 0 4.5px color-mix(in srgb,var(--sign-fg) 85%,transparent);word-break:break-word}
+.zh{font-weight:500;font-size:15px}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font-size:13px;color:var(--muted)}
+.addr{display:inline-flex;align-items:center;gap:6px}
+.plate{display:inline-block;background:var(--plate);color:var(--plate-fg);font-family:var(--f-sign);font-weight:700;font-size:13px;line-height:1;padding:3px 7px 2px;border-radius:4px}
+.tag{font-size:11px;font-weight:700;letter-spacing:.06em;padding:2px 8px;border-radius:999px;border:1px solid currentColor;color:var(--red)}
+.facts{display:grid;gap:6px;margin:0}
+.facts div{display:grid;grid-template-columns:4.2em 1fr;gap:8px}
+.facts dt{color:var(--muted);font-size:13px;padding-top:1px}
+.facts dd{margin:0;min-width:0}
+details.more summary{cursor:pointer;color:var(--blue);font-size:14px;list-style:none}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:" ▾"}
+details.more[open] summary::after{content:" ▴"}
+details.more .facts{margin-top:8px}
+
+.dist{display:flex;align-items:center;gap:10px;background:var(--bg);border-radius:12px;padding:8px 12px;min-width:0}
+.dist .km{font-family:var(--f-sign);font-weight:700;font-size:22px;line-height:1;font-variant-numeric:tabular-nums;flex:none}
+.dist .how{display:flex;flex-direction:column;font-size:12.5px;line-height:1.4;min-width:0}
+.dist .how b{font-size:13px}
+.dist.walk .km,.dist.walk .how b{color:var(--ok)}
+.dist.transit .km,.dist.transit .how b{color:var(--blue)}
+.dist.far .km,.dist.far .how b{color:var(--muted)}
+
+.actions{display:flex;flex-wrap:wrap;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 12px;font-size:13.5px;text-decoration:none;color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.fav{border:none;background:none;padding:4px;cursor:pointer;color:var(--muted);flex:none;display:flex;align-items:center;gap:4px;font-size:12px}
+.fav[aria-pressed="true"]{color:var(--red)}
+.fav[aria-pressed="true"] svg path{fill:currentColor}
+
+.verdict{display:inline-block;font-size:12px;font-weight:700;padding:2px 9px;border-radius:6px;flex:none}
+.v-ok{background:color-mix(in srgb,var(--ok) 18%,transparent);color:var(--ok)}
+.v-warn{background:color-mix(in srgb,var(--warn) 18%,transparent);color:var(--warn)}
+.v-meh{background:var(--surface-2);color:var(--muted)}
+.v-skip{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.hype-row{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.hype-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.hype-head h3{font-size:16px;font-family:var(--f-body);font-weight:700}
+
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.panel h3{font-size:17px}
+.panel ul,.panel ol{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px}
+.note{font-size:13px;color:var(--muted)}
+.warnbox{border-left:3px solid var(--warn);padding:8px 12px;background:color-mix(in srgb,var(--warn) 9%,var(--surface));border-radius:0 10px 10px 0;font-size:14px}
+
+.hotel-now{display:flex;gap:12px;align-items:center}
+.hotel-now .pin{width:40px;height:40px;border-radius:12px;background:var(--ink);color:var(--bg);display:grid;place-items:center;flex:none}
+.hotel-now strong{display:block;font-size:16px}
+.hotel-now span{font-size:12.5px;color:var(--muted)}
+label.fld{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--muted)}
+.input{width:100%;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:10px 12px;font:inherit;font-size:15px}
+textarea.input{min-height:64px;resize:vertical}
+.msg{font-size:13px;border-radius:8px;padding:6px 10px}
+.msg.err{color:var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent)}
+.msg.ok{color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,transparent)}
+.msg.warn{color:var(--warn);background:color-mix(in srgb,var(--warn) 12%,transparent)}
+.mapwrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--map-bg)}
+.mapwrap svg{display:block;width:100%;height:auto;touch-action:manipulation;cursor:crosshair}
+.map-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.map-legend i{display:inline-block;width:10px;height:10px;margin-right:4px;vertical-align:-1px}
+.pending{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:12px;padding:10px 12px;font-size:14px}
+.pending .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.pending .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 50%,transparent)}
+.sel-card{display:flex;flex-direction:column;gap:10px}
+.rows{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface)}
+.row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:11px 14px;border-top:1px solid var(--line);cursor:pointer;background:none;border-left:0;border-right:0;border-bottom:0;text-align:left;width:100%}
+.row:first-child{border-top:0}
+.row:hover{background:var(--bg)}
+.row .rn{font-weight:500;min-width:0}
+.row .rn small{display:block;color:var(--muted);font-weight:400;font-size:12px;font-family:var(--f-sign);letter-spacing:.03em;text-transform:uppercase}
+.row .rd{text-align:right;font-family:var(--f-sign);font-weight:700;font-size:17px;font-variant-numeric:tabular-nums}
+.row .rd small{display:block;font-family:var(--f-body);font-weight:400;font-size:11.5px;color:var(--muted)}
+.row.walk .rd{color:var(--ok)}.row.transit .rd{color:var(--blue)}.row.far .rd{color:var(--muted)}
+.preset-chips{display:flex;flex-wrap:wrap;gap:8px}
+
+.day{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.day-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.day-h .dn{font-family:var(--f-sign);font-weight:700;font-size:13px;letter-spacing:.08em;color:var(--red);text-transform:uppercase}
+.day-h h3{font-size:18px}
+.stops{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;counter-reset:s}
+.stops li{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:baseline;padding:7px 0;border-top:1px dashed var(--line);counter-increment:s}
+.stops li:first-child{border-top:0}
+.stops li::before{content:counter(s);font-family:var(--f-sign);font-weight:700;color:var(--muted)}
+.stops .sd{font-family:var(--f-sign);font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;font-size:14px;white-space:nowrap}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:300px}
+th,td{padding:9px 12px;text-align:left;border-top:1px solid var(--line)}
+thead th{border-top:0;background:var(--bg);font-size:12px;color:var(--muted);font-weight:500}
+td.n{font-family:var(--f-sign);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.line{display:inline-grid;place-items:center;min-width:30px;height:24px;padding:0 6px;border-radius:6px;font-family:var(--f-sign);font-weight:700;color:#fff;font-size:14px;margin-right:6px;vertical-align:middle;background:var(--lt3)}
+.lT1{background:var(--lt1)}.lM2{background:var(--lt2)}
+
+.phone{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line)}
+.phone:first-of-type{border-top:0}
+.phone .pn{font-family:var(--f-sign);font-weight:700;font-size:20px;user-select:all;font-variant-numeric:tabular-nums}
+.phone .pl{font-size:13px;color:var(--muted)}
+.timeline{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.timeline li{display:grid;grid-template-columns:4.8em 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.timeline li:first-child{border-top:0}
+.timeline .yr{font-family:var(--f-sign);font-weight:700;font-size:17px;color:var(--red);font-variant-numeric:tabular-nums}
+.timeline .see{display:block;font-size:12.5px;color:var(--muted);margin-top:2px}
+.words{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.word{background:var(--bg);border-radius:10px;padding:8px 10px}
+.word b{display:block;font-family:var(--f-sign);font-size:18px;letter-spacing:.02em}
+.word span{font-size:12.5px;color:var(--muted)}
+
+/* route + top 10 */
+.route-head{display:flex;flex-direction:column;gap:8px}
+.route-sum{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.route-sum b{font-family:var(--f-sign);font-size:18px;color:var(--ink);font-variant-numeric:tabular-nums}
+.day-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.day-tabs .chip{text-align:center;padding:9px 10px;line-height:1.3}
+.day-tabs .chip small{display:block;font-size:12px;opacity:.75}
+.illus{display:block;width:100%;height:auto;aspect-ratio:16/9;border-radius:12px;max-width:100%}
+.stop-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 12px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.stop-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding-inline:4px}
+.stop-no{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red);color:var(--surface);font-family:var(--f-sign);font-weight:700;font-size:17px;flex:none}
+.stop-body{display:flex;flex-direction:column;gap:10px;padding-inline:4px}
+.stop-time{font-family:var(--f-sign);font-weight:600;font-size:15px;color:var(--blue);letter-spacing:.02em}
+.leg{margin-left:19px;border-left:2px dashed var(--line);padding:10px 0 10px 18px;font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.leg.tr{border-left-style:solid;border-left-color:var(--turq)}
+.leg b{color:var(--ink);font-family:var(--f-sign);font-size:15px;font-variant-numeric:tabular-nums}
+.top10{display:flex;flex-direction:column;gap:10px}
+.t10{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;grid-template-columns:2.4em 1fr;gap:4px 12px;min-width:0}
+.t10 .rk{font-family:var(--f-sign);font-weight:700;font-size:30px;line-height:1;color:var(--red);font-variant-numeric:tabular-nums;grid-row:span 2}
+.t10 .rk.low{color:var(--muted)}
+.t10 .hd{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;min-width:0}
+.t10 h3{font-size:16px;font-family:var(--f-body);font-weight:700}
+.t10 .st{color:var(--warn);letter-spacing:.12em;font-size:14px}
+.t10 .st i{font-style:normal;color:var(--line)}
+.t10 .bd{display:flex;flex-direction:column;gap:8px;min-width:0}
+.trap{border-left:3px solid var(--bad);padding:4px 10px;background:color-mix(in srgb,var(--bad) 7%,var(--surface));border-radius:0 8px 8px 0;font-size:14px}
+.trap b{color:var(--bad)}
+.lounge{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:10px 0;border-top:1px solid var(--line)}
+.lounge:first-of-type{border-top:0}
+.lounge b{font-size:15px}
+.lounge .lt{font-family:var(--f-sign);font-weight:700;font-size:13px;letter-spacing:.04em;padding:2px 8px;border-radius:6px;background:var(--surface-2);white-space:nowrap;align-self:start}
+.lounge .lt.go{background:color-mix(in srgb,var(--blue) 16%,transparent);color:var(--blue)}
+.lounge span.ld{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
+.subh{font-size:13px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-top:4px}
+
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--surface);border-top:1px solid var(--line)}
+.tabs-in{max-width:680px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr);padding-bottom:env(safe-area-inset-bottom,0px);padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+.tabbtn{border:0;background:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 7px;font-size:11.5px;color:var(--muted);cursor:pointer}
+.tabbtn svg{width:24px;height:24px}
+.tabbtn[aria-selected="true"]{color:var(--red);font-weight:700}
+.tabbtn.center span.ring{display:grid;place-items:center;width:40px;height:30px;border-radius:10px;background:var(--surface-2)}
+.tabbtn.center[aria-selected="true"] span.ring{background:var(--red);color:var(--surface)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<header class="top"><div class="top-in">
+  <div class="brand"><h1>伊斯坦布尔初访手册</h1><span>İstanbul · 2026 秋冬</span></div>
+  <button class="hotel-chip" id="hotelChip" type="button" aria-label="设置酒店位置">
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/></svg>
+    <b id="hotelChipText">酒店</b>
+  </button>
+</div></header>
+
+<main>
+<!-- ============ 美食 ============ -->
+<section class="tab" id="tab-food" aria-labelledby="h-food">
+  <div class="sec-h"><h2 id="h-food">美食</h2><small>本地人常去 · 口碑稳定</small></div>
+  <div class="rules">
+    <h3>吃饭三条铁律</h3>
+    <ol>
+      <li><b>苏丹艾哈迈德广场一带门口拉客的店不进</b>。好吃又不贵的 lokanta（家常食堂）都在 Karaköy、Kadıköy、Beşiktaş 和老城的小巷里。</li>
+      <li><b>没点的东西别碰</b>：面包、坚果、瓶装水、小菜可能都算钱；结账看有没有 <b>servis ücreti（服务费）</b>，加了就不用再给小费。</li>
+      <li>刷卡、取钱一律选 <b>TL（里拉）</b>，不要选美元或人民币。物价涨得快，菜单价格以现场为准。</li>
+    </ol>
+    <div class="meter">
+      <span class="meter-label">用一人份传统早餐 serpme kahvaltı 判断是不是游客价（2026 年 4 月价）</span>
+      <div class="meter-bar" role="img" aria-label="本地早餐店约 400 到 600 里拉，景观或热门店约 600 到 850 里拉，超过 1000 里拉多半是游客价">
+        <div class="m1"><b>400–600 TL</b>本地早餐店</div>
+        <div class="m2"><b>600–850 TL</b>景观 / 热门店</div>
+        <div class="m3"><b>1,000+ TL</b>多半游客价</div>
+      </div>
+    </div>
+  </div>
+  <div class="chips" id="foodChips" role="group" aria-label="美食分类"></div>
+  <label class="toggle"><input type="checkbox" id="foodNear"> 离酒店近的排前面</label>
+  <div class="list" id="foodList"></div>
+</section>
+
+<!-- ============ 景点 ============ -->
+<section class="tab" id="tab-sights" aria-labelledby="h-sights" hidden>
+  <div class="sec-h"><h2 id="h-sights">景点</h2><small>门票为 2026 年资料</small></div>
+  <div class="warnbox">清真寺每天 5 次礼拜时对游客关闭，<b>周五中午到 14:00 前</b>基本进不去（圣索菲亚、蓝色清真寺都一样）。托普卡帕宫<b>周二闭馆</b>，大巴扎<b>周日关门</b>。</div>
+  <div class="chips" id="sightChips" role="group" aria-label="景点分类"></div>
+  <label class="toggle" id="sightNearWrap"><input type="checkbox" id="sightNear"> 离酒店近的排前面</label>
+  <div class="list" id="sightList"></div>
+</section>
+
+<!-- ============ 距离 ============ -->
+<section class="tab" id="tab-dist" aria-labelledby="h-dist" hidden>
+  <div class="sec-h"><h2 id="h-dist">离酒店多远</h2><small>直线距离 × 1.3 估算路程</small></div>
+
+  <div class="panel" id="hotelPanel">
+    <div class="hotel-now">
+      <div class="pin"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V9l9-6 9 6v12h-6v-7H9v7z" fill="currentColor"/></svg></div>
+      <div><strong id="hotelName">—</strong><span id="hotelCoord"></span></div>
+    </div>
+    <label class="fld" for="hotelInput">粘贴酒店坐标，或 Google 地图的完整链接
+      <textarea class="input" id="hotelInput" placeholder="例如 41.0082, 28.9784"></textarea>
+    </label>
+    <label class="fld" for="hotelLabel">酒店名称（可不填）
+      <input class="input" id="hotelLabel" placeholder="例如 Pera Palace">
+    </label>
+    <div class="actions"><button class="btn primary" id="hotelSave" type="button">保存为我的酒店</button></div>
+    <div id="hotelMsg" class="msg" hidden></div>
+    <details class="more">
+      <summary>怎么拿到酒店坐标？</summary>
+      <ol style="margin-top:8px">
+        <li><b>Google 地图 App</b>：搜到酒店后，在酒店位置上<b>长按</b>，屏幕上方搜索框会出现一串数字（如 41.0082, 28.9784），点一下复制，粘贴到上面。</li>
+        <li><b>苹果地图</b>：在酒店位置长按放一个大头针，往上滑信息卡，能看到“坐标”，长按复制。</li>
+        <li><b>Booking / 携程</b>：打开酒店页面的地图，用 Google 地图打开，再按第 1 步长按。</li>
+        <li>分享出来的 <span class="num">maps.app.goo.gl</span> 短链接里没有坐标，用不了；在浏览器打开后，地址栏里的长链接可以用。</li>
+      </ol>
+    </details>
+    <div>
+      <p class="note" style="margin-bottom:8px">还没订酒店？先选个大致区域：</p>
+      <div class="preset-chips" id="presets"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>市中心示意图</h3>
+    <p class="note">点地图上的点查看距离；点空白处可以把酒店设在那里。海岸线和位置为示意，导航请用下方按钮打开地图 App。</p>
+    <div class="mapwrap"><svg id="map" role="img" aria-label="伊斯坦布尔市中心示意图，标出酒店、餐厅和景点"></svg></div>
+    <div id="pending" class="pending" hidden></div>
+    <div class="map-legend">
+      <span><i style="background:var(--red);border-radius:50%"></i>餐厅</span>
+      <span><i style="background:var(--blue)"></i>景点</span>
+      <span><i style="background:var(--ink);border-radius:50%"></i>酒店</span>
+      <span id="offmap"></span>
+    </div>
+    <div id="selCard" class="sel-card"></div>
+  </div>
+
+  <div class="panel">
+    <h3>查目的地</h3>
+    <input class="input" id="q" type="search" placeholder="输入名字，例如 圣索菲亚、Çiya、机场" autocomplete="off">
+    <div class="chips" id="distChips" role="group" aria-label="目的地分类"></div>
+    <div class="rows" id="results"></div>
+  </div>
+
+  <div class="panel">
+    <h3>清单外的地方</h3>
+    <label class="fld" for="customInput">粘贴目的地坐标或 Google 地图完整链接
+      <textarea class="input" id="customInput" placeholder="例如 41.0256, 28.9741"></textarea>
+    </label>
+    <div class="actions"><button class="btn primary" id="customGo" type="button">算距离</button></div>
+    <div id="customOut"></div>
+  </div>
+</section>
+
+<!-- ============ 出行 ============ -->
+<section class="tab" id="tab-go" aria-labelledby="h-go" hidden>
+  <div class="sec-h"><h2 id="h-go">出行</h2><small>2026 年票价，物价变动快</small></div>
+
+  <div class="panel">
+    <h3>公交卡：买一张 İstanbulkart</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>项目</th><th>价格</th><th>说明</th></tr></thead>
+      <tbody>
+        <tr><td>İstanbulkart 刷一次</td><td class="n">42 TL</td><td>地铁、电车、公交、渡轮、缆车通用（2026 年 9 月价）</td></tr>
+        <tr><td>换乘</td><td class="n">打折</td><td>一定时间内换乘，第 2 次起越换越便宜</td></tr>
+        <tr><td>一次性纸票</td><td class="n">更贵</td><td>不能坐去王子群岛的渡轮，偶尔坐一次才用</td></tr>
+        <tr><td>跨洲（走大桥的公交）</td><td class="n">× 2</td><td>坐渡轮或 Marmaray 过海更划算</td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>在地铁站、电车站、码头的红色 <b>Biletmatik</b> 机器买卡和充值，可以用现金或银行卡，机器不一定找零。</li>
+      <li><b>一张卡可以给同行的人连刷</b>，两个人买一张就够。</li>
+      <li>大部分车可以直接刷非接触银行卡，但没有换乘优惠，Marmaray 不能刷银行卡，所以还是建议买卡。</li>
+      <li>常用线路：<span class="line lT1">T1</span>电车（Kabataş–Karaköy–Eminönü–苏丹艾哈迈德–大巴扎）、<span class="line lM2">M2</span>地铁（Taksim–Şişhane–金角湾大桥–Vezneciler）、<span class="line">F1</span>缆车（Taksim↔Kabataş，约 2 分钟）、<span class="line">Marmaray</span>海底铁路（Sirkeci↔Üsküdar 一站过海）。</li>
+      <li><b>渡轮</b>是伊斯坦布尔最好用也最好看的交通：Eminönü / Karaköy / Kabataş ↔ Kadıköy / Üsküdar，刷 İstanbulkart。</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>机场进城</h3>
+    <p class="subh">伊斯坦布尔机场 IST（欧洲一侧，美国航班基本都在这里）</p>
+    <ul>
+      <li><b>最省：M11 地铁</b> 到 Gayrettepe（约 30–40 分钟），换 <span class="line lM2">M2</span> 去 Taksim；去老城继续坐 M2 到 Vezneciler，再走路或坐 T1。全程约 60–80 分钟，刷 İstanbulkart。M11 不是 24 小时，首末班以官网为准。</li>
+      <li><b>最方便：Havaist 机场大巴</b>，HVL-13 经 Eminönü 到苏丹艾哈迈德约 470 TL、约 110 分钟；也有到 Taksim、Beşiktaş、Kadıköy 的线路。可刷卡或用 Havaist App 买票。</li>
+      <li><b>打车</b>：45–75 分钟。用 BiTaksi 或 Uber 叫车，或在到达层官方排队点上车，确认打表（taksimetre），备些小面额现金。</li>
+    </ul>
+    <p class="subh">萨比哈·格克琴机场 SAW（亚洲一侧，多是廉航）</p>
+    <ul>
+      <li><b>M4 地铁</b> 到 Kadıköy，再坐渡轮或 Marmaray 去欧洲一侧，老城约 75–100 分钟。</li>
+      <li><b>Havabus 大巴</b> 到 Taksim 或 Kadıköy，约 60–90 分钟。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="go-lounge">
+    <h3>机场贵宾室（Priority Pass）</h3>
+    <p><b>两个机场都可以用。</b>伊斯坦布尔机场 IST 有 3 家 iGA 贵宾室可用，萨比哈·格克琴 SAW 有 Plaza Premium 贵宾室。都是 24 小时，一般最多待 3 小时。</p>
+    <p class="subh">伊斯坦布尔机场 IST</p>
+    <div>
+      <div class="lounge"><b>iGA Lounge</b><span class="lt go">回美国用这家</span><span class="ld">国际出发区，过了出境护照检查后，上夹层（mezzanine）往左走。24 小时，最多 3 小时；没有会员的现场价约 115 欧元。</span></div>
+      <div class="lounge"><b>Pop up Lounge by iGA</b><span class="lt go">国际航班</span><span class="ld">国际出发区，A5 登机口对面。24 小时，最多 3 小时。登机口在 A 区时更顺路。</span></div>
+      <div class="lounge"><b>iGA Lounge Domestic</b><span class="lt">土耳其国内航班</span><span class="ld">国内出发区，安检后在 11 号登机口附近。24 小时，最多 3 小时。</span></div>
+    </div>
+    <p class="subh">萨比哈·格克琴机场 SAW</p>
+    <div>
+      <div class="lounge"><b>Plaza Premium Lounge – Marmara</b><span class="lt go">国际航班</span><span class="ld">国际出发层，安检后，204 号登机口附近。24 小时。</span></div>
+      <div class="lounge"><b>Plaza Premium Lounge – Bosphorus</b><span class="lt">临时关闭</span><span class="ld">国际出发层，205 号登机口附近。截至 2026 年 6 月临时关闭。</span></div>
+      <div class="lounge"><b>Plaza Premium Lounge – Anadolu</b><span class="lt">土耳其国内航班</span><span class="ld">国内出发层，206 号登机口附近。24 小时。</span></div>
+    </div>
+    <ul>
+      <li><b>飞回美国</b>：从 IST 走，过出境护照检查后去 iGA Lounge。土耳其航空自己的贵宾室不收 Priority Pass。</li>
+      <li>IST 的 SkyTeam 贵宾室火灾后关闭，重开日期未定，旧攻略里有的话别去找。</li>
+      <li>出发当天在 Priority Pass App 里再看一次营业时间和是否满员；有餐厅抵扣的话，能不能用要看你的会员是哪张卡给的。</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>打车</h3>
+    <ul>
+      <li>用 <b>BiTaksi</b> 或 <b>Uber</b> 叫黄色出租车，路线和费用有记录。路边拦车先确认打表。</li>
+      <li>司机说“加拉塔大桥封了”“要绕路”，多半是借口，换一辆。</li>
+      <li>跨海走大桥常堵车，赶时间优先坐渡轮或 Marmaray。</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>走路</h3>
+    <ul>
+      <li>伊斯坦布尔坡很多：加拉塔塔、贝伊奥卢、苏莱曼尼耶都在坡上，石子路滑，穿防滑平底鞋。</li>
+      <li>老城（苏丹艾哈迈德—大巴扎—苏莱曼尼耶）可以全程走路；去新城、亚洲区用电车、缆车、渡轮接驳。</li>
+    </ul>
+  </div>
+
+  <div class="panel">
+    <h3>一日游怎么去</h3>
+    <ul>
+      <li><b>王子群岛 Büyükada</b>：Kabataş 或 Eminönü 坐渡轮约 1.5 小时，刷 İstanbulkart（纸票不能用）。岛上无机动车，适合骑车散步。</li>
+      <li><b>博斯普鲁斯长线游船</b>：Eminönü Boğaz İskelesi 约 10:35 出发，约 6 小时（在 Anadolu Kavağı 停 2 小时），售票窗口可能只收现金。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 须知 ============ -->
+<section class="tab" id="tab-notes" aria-labelledby="h-notes" hidden>
+  <div class="sec-h"><h2 id="h-notes">须知</h2><small>安全 · 钱 · 签证 · 历史</small></div>
+  <div class="chips" id="noteJump" role="group" aria-label="跳到小节">
+    <button class="chip" type="button" data-jump="n-offline">离线使用</button>
+    <button class="chip" type="button" data-jump="n-trap">避坑</button>
+    <button class="chip" type="button" data-jump="n-money">钱</button>
+    <button class="chip" type="button" data-jump="n-safe">安全</button>
+    <button class="chip" type="button" data-jump="n-sos">紧急电话</button>
+    <button class="chip" type="button" data-jump="n-mosque">清真寺须知</button>
+    <button class="chip" type="button" data-jump="n-life">生活礼仪</button>
+    <button class="chip" type="button" data-jump="n-visa">签证</button>
+    <button class="chip" type="button" data-jump="n-red">小红书</button>
+    <button class="chip" type="button" data-jump="n-hist">历史</button>
+    <button class="chip" type="button" data-jump="n-check">出发前核对</button>
+  </div>
+
+  <div class="panel" id="n-offline">
+    <h3>存到手机，没网也能用</h3>
+    <div id="offlineStatus" class="msg warn">正在检查离线状态…</div>
+    <ol>
+      <li><b>iPhone</b>：用 <b>Safari</b> 打开本页，点底部的分享按钮 → <b>添加到主屏幕</b>。</li>
+      <li><b>安卓</b>：用 <b>Chrome</b> 打开本页，点右上角 ⋮ → <b>添加到主屏幕</b> 或 <b>安装应用</b>。</li>
+      <li>有网的时候，从主屏幕图标<b>打开一次</b>，等上面显示“已保存”。之后没网也能打开。</li>
+      <li>在主屏幕版里重新设置一次酒店位置。主屏幕版和浏览器版的数据是分开存的。</li>
+    </ol>
+    <p class="note">微信、小红书里直接点开的页面不能离线保存，请先点右上角“在浏览器打开”。</p>
+    <p class="note">没网时：全部内容、距离估算、示意图都能用；“导航”按钮要打开地图 App，建议出发前在 Google 地图里下载伊斯坦布尔的离线地图。字体可能变成手机自带字体，不影响内容。</p>
+  </div>
+
+  <div class="panel" id="n-trap">
+    <h3>避坑清单</h3>
+    <ol>
+      <li><b>“借个火”“交个朋友”</b>：穿着体面、英语很好的男子搭讪后，邀你去“朋友的酒吧”，最后账单巨额。Taksim、İstiklal 一带最常见。只去自己选的店。</li>
+      <li><b>掉刷子的擦鞋匠</b>：在你面前掉一把刷子，你帮他捡起来，他就要给你擦鞋，然后要高价。别捡，继续走。</li>
+      <li><b>热心带路</b>：主动带你去景点或大巴扎的人，多半会把你带进“亲戚的”地毯店、皮具店喝茶推销。礼貌拒绝。</li>
+      <li><b>餐厅加料</b>：没点的面包、坚果、水、小菜，或者把啤酒换成贵的牌子。点单时说清楚，没点的东西原封不动退回去；看两份菜单（游客版价格更高）的情况。</li>
+      <li><b>找零“忘了”</b>：苏丹艾哈迈德一带有店家说你给的刚好、或者不找零。能刷卡就刷卡。</li>
+      <li><b>卖面包圈的人“摔倒”</b>：simit 小贩假装摔倒要你赔，直接走。</li>
+      <li><b>码头游船拉客</b>：Eminönü 码头有人卖“博斯普鲁斯游船”，有的只在港口绕半小时。去官方窗口（Şehir Hatları、Turyol、Dentur Avrasya）买。</li>
+      <li><b>土耳其冰淇淋表演</b>：好玩，但先问清楚多少钱一份。</li>
+    </ol>
+    <p><b>小费</b>：服务好给 5–10%，账单上已经有 servis ücreti 就不用再给。</p>
+    <p><b>中国胃</b>：土耳其菜很合中国胃。推荐 lokanta 里的炖菜和米饭、扁豆汤 mercimek çorbası、烤肉 kebap、肉丸 köfte、土耳其饺子 mantı、薄饼 lahmacun。早餐 serpme kahvaltı 十几个小碟，两人点一份就够。</p>
+  </div>
+
+  <div class="panel" id="n-money">
+    <h3>钱</h3>
+    <ul>
+      <li>货币是<b>土耳其里拉 TL（₺）</b>。物价涨得很快，本页价格是 2026 年的资料，以现场为准。很多景点直接用欧元定价（如圣索菲亚、加拉塔塔），付款时按当天汇率换成里拉。</li>
+      <li>刷卡几乎到处能用；小摊、出租车、长线游船窗口、清真寺门口的小费箱要现金。</li>
+      <li>POS 机或 ATM 问用本币还是 TL，<b>永远选 TL</b>。</li>
+      <li>不用 Euronet 等独立 ATM，用银行的 ATM。机场换汇点汇率差，市区挂着 <b>Döviz</b> 牌子的换汇店（大巴扎周边很多）汇率通常好很多，换之前看清买入卖出价。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-safe">
+    <h3>安全</h3>
+    <p>美国国务院对土耳其的建议是 2 级（提高警惕），最高级别的“不要前往”只针对叙利亚边境附近地区，不包括伊斯坦布尔。针对游客的暴力犯罪很少，主要风险是<b>小偷和骗局</b>。女生独自旅行很常见，在大巴扎被推销时说一句 “Hayır, teşekkürler”（不用了，谢谢）就好。</p>
+    <ul>
+      <li><b>假酒</b>：2025 年伊斯坦布尔发生过非法酒精（甲醇）中毒，至少 160 人死亡，其中有外国游客。只在正规餐厅酒吧喝，别买来路不明的便宜烈酒，喝着味道不对就别喝。</li>
+      <li><b>小偷高发地</b>：苏丹艾哈迈德广场、大巴扎、Taksim 和 İstiklal 大街、T1 电车、渡轮码头。包背在前面，手机别放桌上。</li>
+      <li><b>夜里少去</b>：凌晨 1 点后 İstiklal 两边的后巷、Tarlabaşı、Aksaray、Laleli。苏丹艾哈迈德、Karaköy、Beşiktaş、Nişantaşı、Kadıköy 晚上人多相对安全。</li>
+      <li><b>集会</b>：Taksim、Beşiktaş 偶尔有游行和警察封路，遇到就离开，别拍警察。</li>
+      <li><b>假警察</b>：有人自称警察要看钱包，别给，走到人多的地方或去警察局。护照原件随身带好。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-sos">
+    <h3>紧急电话</h3>
+    <div>
+      <div class="phone"><div><div class="pn">112</div><div class="pl">通用紧急电话（警察、急救、消防）</div></div><button class="btn copy" type="button" data-copy="112">复制</button></div>
+      <div class="phone"><div><div class="pn">+90 212 527 4503</div><div class="pl">旅游警察（苏丹艾哈迈德）</div></div><button class="btn copy" type="button" data-copy="+902125274503">复制</button></div>
+      <div class="phone"><div><div class="pn">+90 212 335 9000</div><div class="pl">美国驻伊斯坦布尔总领事馆（美国公民服务，下班时间也接紧急电话）</div></div><button class="btn copy" type="button" data-copy="+902123359000">复制</button></div>
+      <div class="phone"><div><div class="pn">+90 312 455 5555</div><div class="pl">美国驻土耳其大使馆（安卡拉）</div></div><button class="btn copy" type="button" data-copy="+903124555555">复制</button></div>
+    </div>
+    <p class="note">美国总领事馆地址：İstinye Mahallesi, Üç Şehitler Sokak No. 2, İstinye（博斯普鲁斯海峡欧洲一侧北边，离市中心较远，去之前先打电话）。出发前在美国国务院 STEP（step.state.gov）登记行程。护照丢了先去警察局报案，再联系领事馆补办。</p>
+  </div>
+
+  <div class="panel" id="n-mosque">
+    <h3>清真寺须知</h3>
+    <ul>
+      <li>进清真寺要<b>脱鞋</b>；女生<b>包头发</b>、穿过膝的长裙或长裤、遮住肩膀。门口一般免费借头巾和裙子。</li>
+      <li>每天 5 次礼拜时间对游客关闭，周五中午的主麻礼拜时间更长。去之前查当天礼拜时间（Google 搜 “Istanbul prayer times”）。</li>
+      <li>里面保持安静，不要拍正在祈祷的人，不要走到祈祷区前面。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-life">
+    <h3>生活和礼仪</h3>
+    <div class="words">
+      <div class="word"><b>Merhaba</b><span>你好</span></div>
+      <div class="word"><b>Teşekkür ederim</b><span>谢谢</span></div>
+      <div class="word"><b>Hayır, teşekkürler</b><span>不用了，谢谢（拒绝推销）</span></div>
+      <div class="word"><b>Hesap, lütfen</b><span>请买单</span></div>
+      <div class="word"><b>Ne kadar?</b><span>多少钱？</span></div>
+    </div>
+    <ul>
+      <li>自来水经过处理，但本地人大多喝瓶装水或过滤水。</li>
+      <li>10–11 月白天大约 12–20°C，常下雨；12 月 5–12°C，海边风大。带防风外套和雨伞。</li>
+      <li>公开场合亲密举动会招来目光，保守一点比较好。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-visa">
+    <h3>签证（美国护照）</h3>
+    <ul>
+      <li>美国普通护照去土耳其<b>免签</b>，任意 180 天内最多停留 90 天。</li>
+      <li>护照有效期要比停留期多出至少 60 天，建议至少还有 6 个月。</li>
+      <li>土耳其不是申根国家，EES 和 ETIAS 跟这次入境无关。如果接着去欧洲申根国，那边的规定另算。</li>
+      <li>网上有很多卖“土耳其电子签证”的网站，美国护照不需要，别花钱。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-red">
+    <h3>小红书搜索建议</h3>
+    <ul>
+      <li>搜店时加“本地人”“避雷”“账单”“lokanta”等关键词，重点看最近 3 个月的笔记。里拉贬值快，旧笔记里的价格基本都过时了。</li>
+      <li>旧攻略常见过时信息：圣索菲亚“免费参观”（2024 年起外国游客收费、只能走二楼）、卡里耶（Chora）是博物馆（现在是清真寺，部分区域收费）、IST 机场 SkyTeam 贵宾室（火灾后关闭）、早餐店 Pando Kaymak（已关门）。</li>
+      <li>很多笔记都在同一个机位拍同一道菜，基本就是网红店，按避坑清单自己判断。</li>
+    </ul>
+  </div>
+
+  <div class="panel" id="n-hist">
+    <h3>五分钟伊斯坦布尔历史</h3>
+    <ol class="timeline">
+      <li><span class="yr">前 7 世纪</span><div>希腊人在海角上建立拜占庭（Byzantion），就是今天托普卡帕宫所在的地方。<span class="see">去看：托普卡帕宫所在的海角</span></div></li>
+      <li><span class="yr">330</span><div>君士坦丁大帝把罗马帝国首都迁到这里，改名君士坦丁堡。<span class="see">去看：苏丹艾哈迈德广场（古代赛马场）</span></div></li>
+      <li><span class="yr">532–537</span><div>查士丁尼大帝修建地下水宫和圣索菲亚大教堂，此后近千年都是世界最大的教堂。<span class="see">去看：地下水宫、圣索菲亚</span></div></li>
+      <li><span class="yr">1453</span><div>奥斯曼苏丹穆罕默德二世攻下君士坦丁堡，拜占庭帝国灭亡，圣索菲亚改为清真寺，随后建托普卡帕宫。<span class="see">去看：托普卡帕宫</span></div></li>
+      <li><span class="yr">1557</span><div>建筑师锡南为苏莱曼大帝建成苏莱曼尼耶清真寺，这是奥斯曼帝国的鼎盛时期。<span class="see">去看：苏莱曼尼耶清真寺</span></div></li>
+      <li><span class="yr">1616</span><div>苏丹艾哈迈德清真寺（蓝色清真寺）建成，内部用两万多块伊兹尼克瓷砖。<span class="see">去看：蓝色清真寺</span></div></li>
+      <li><span class="yr">1856</span><div>苏丹搬进欧式风格的多尔玛巴赫切宫，帝国开始西化改革。<span class="see">去看：多尔玛巴赫切宫</span></div></li>
+      <li><span class="yr">1923</span><div>土耳其共和国成立，首都定在安卡拉。1934 年圣索菲亚改为博物馆。</div></li>
+      <li><span class="yr">2013</span><div>海底铁路 Marmaray 通车，第一次用铁路把欧亚两岸连起来。<span class="see">去看：坐 Marmaray 从 Sirkeci 到 Üsküdar</span></div></li>
+      <li><span class="yr">2020</span><div>圣索菲亚重新改为清真寺；2024 年起外国游客要买票，从二楼参观廊参观。</div></li>
+    </ol>
+  </div>
+
+  <div class="panel" id="n-check">
+    <h3>出发前请再核对</h3>
+    <ul>
+      <li>里拉物价涨得很快，餐厅和门票价格都以现场为准；交通单程 42 TL 是 2026 年 9 月的价格。</li>
+      <li>圣索菲亚门票各来源说法有 25 欧元和 27.5 欧元两种；托普卡帕宫有说 2,750 TL（含后宫），也有说 60–70 欧元；地下水宫 1,300–1,500 TL。以官方售票处为准。</li>
+      <li>多尔玛巴赫切宫的闭馆日各来源不一致（周一或无），去之前查官网。</li>
+      <li>机场贵宾室：IST 和 SAW 的位置来自第三方资料，Priority Pass 官网页面这次没能打开核对。出发前在 Priority Pass App 里确认。</li>
+      <li>米其林名单每年 12 月更新，本页用的是 2026 年版。</li>
+      <li>本页距离按直线距离估算，实际路程请以地图 App 为准。</li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<nav class="tabs" aria-label="栏目"><div class="tabs-in" role="tablist">
+  <button class="tabbtn" role="tab" data-tab="food" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v8a2 2 0 0 1-1.5 1.94V22h-2V11.94A2 2 0 0 1 2 10V2h1.5v6H5V2h1.5v6H8V2zm9 0c2.2 0 4 2.5 4 6.5 0 2.4-1 4-2.5 4.6V22h-2V2.1A3 3 0 0 1 16 2z" fill="currentColor"/></svg>美食</button>
+  <button class="tabbtn" role="tab" data-tab="sights" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 22V6l.7-3 .7 3v16zm17.6 0V6l.7-3 .7 3v16zM6 22v-5a6 6 0 0 1 12 0v5zM8 15a4 4 0 0 1 8 0z" fill="currentColor"/></svg>景点</button>
+  <button class="tabbtn center" role="tab" data-tab="dist" type="button"><span class="ring"><svg viewBox="0 0 24 24" aria-hidden="true" width="22" height="22"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/></svg></span>距离</button>
+  <button class="tabbtn" role="tab" data-tab="go" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15h18l-2.5 5h-13zM5 13V9h6V4l6 5v4z" fill="currentColor"/></svg>出行</button>
+  <button class="tabbtn" role="tab" data-tab="notes" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6h2zm0-8h-2V7h2z" fill="currentColor"/></svg>须知</button>
+</div></nav>
+
+<script>
+"use strict";
+/* ---------- data ---------- */
+const FOOD_TYPES = {all:"全部推荐",lokanta:"家常食堂 lokanta",kebab:"烤肉",snack:"早餐小吃甜点",asian:"想吃中餐",fine:"吃顿好的",hype:"小红书热门值不值"};
+const SIGHT_TYPES = {top10:"Top 10 两日路线",trap10:"Top 10 排雷",must:"必去",more:"顺路看",rain:"雨天备选",trip:"一日游",photo:"拍照机位",plan:"行程建议"};
+const CITY = "İstanbul";
+
+const P = [
+// lokanta
+{id:"ciya",kind:"food",type:"lokanta",badge:"首选",name:"Çiya Sofrası",zh:"亚洲区最有名的安纳托利亚家常菜",area:"卡德柯伊 Kadıköy",street:"Güneşlibahçe Sokak",no:"43",lat:40.9906,lng:29.0254,
+ price:"₺₺ 中等",order:"柜台里当天做的炖菜、红扁豆汤、imam bayıldı（橄榄油焖茄子）、içli köfte、开心果烤肉",
+ why:"1987 年开业，当地美食作者公认亚洲区最好的土耳其家常菜；同一条街上有好几家分店。",tip:"从 Kadıköy 渡轮码头走几分钟。在柜台指着菜点，按份量算钱。"},
+{id:"karakoylok",kind:"food",type:"lokanta",badge:"Bib Gourmand",name:"Karaköy Lokantası",zh:"米其林必比登的老式食堂",area:"卡拉柯伊 Karaköy",street:"Kemankeş Caddesi",no:"37A",lat:41.0233,lng:28.9787,
+ price:"₺₺ 中等",order:"中午：牛脸汤、当天的炖菜；晚上：烤章鱼、冷盘 meze",
+ why:"2026 年米其林 Bib Gourmand。中午是传统食堂，晚上变成可以喝酒的 meyhane。",tip:"晚餐一定要提前订位。"},
+{id:"yanyali",kind:"food",type:"lokanta",badge:"Bib Gourmand",name:"Yanyalı Fehmi Lokantası",zh:"20 世纪初开业的奥斯曼家常菜",area:"卡德柯伊 Kadıköy",street:"Serasker Caddesi",no:"7",lat:40.9893,lng:29.0272,
+ price:"₺₺ 中等",order:"招牌 Yanya köfte（肉丸）、柜台炖菜、甜点",why:"2026 年米其林 Bib Gourmand，从 20 世纪初就在做奥斯曼和土耳其菜。",tip:"离 Kadıköy 渡轮码头步行几分钟，可以和 Çiya 安排在同一趟。"},
+{id:"pandeli",kind:"food",type:"lokanta",badge:"Bib Gourmand",name:"Pandeli",zh:"香料市场楼上的老餐厅",area:"埃米诺努 Eminönü",street:"Mısır Çarşısı",no:"1",lat:41.0167,lng:28.9704,
+ price:"₺₺₺ 偏贵",order:"传统奥斯曼菜、茄子烤肉",why:"2026 年米其林 Bib Gourmand，在香料市场入口楼上，满墙蓝色伊兹尼克瓷砖。",tip:"Top 10 路线第二天的午饭可以选这里。"},
+{id:"hunkar",kind:"food",type:"lokanta",name:"Hünkar Lokantası",zh:"1950 年代开始做土耳其菜的老店",area:"尼尚塔什 Nişantaşı",street:"Mim Kemal Öke Caddesi",no:"21",lat:41.0516,lng:28.9915,
+ price:"₺₺₺ 偏贵",order:"hünkar beğendi（茄泥配炖羊肉）、羊肩、sütlü kadayıf",why:"环境体面的老字号，适合好好吃一顿正宗土耳其菜。",tip:"在购物区尼尚塔什，可以和逛街安排在一起。"},
+{id:"haciabdullah",kind:"food",type:"lokanta",name:"Hacı Abdullah",zh:"İstiklal 旁的百年老店",area:"贝伊奥卢 Beyoğlu",street:"Atıf Yılmaz Caddesi",no:"9A",lat:41.0349,lng:28.9811,
+ price:"₺₺ 中等",order:"奥斯曼炖菜、腌渍水果罐、甜点",why:"在 İstiklal 大街旁边的老餐馆，逛街时吃饭最方便的靠谱选择。",tip:"Top 10 路线第二天顺路。"},
+{id:"sahin",kind:"food",type:"lokanta",name:"Tarihi Şahin Lokantası",zh:"Tünel 附近的街坊食堂",area:"贝伊奥卢 Asmalımescit",street:"Asmalımescit",no:"",lat:41.0306,lng:28.9750,
+ price:"₺ 平价",order:"karnıyarık（肉末酿茄子）配米饭、扁豆汤、葡萄叶包饭",why:"柜台里的菜天天换，分量足。",tip:"在加拉塔塔和 İstiklal 之间，中午人多。"},
+{id:"kanaat",kind:"food",type:"lokanta",name:"Kanaat Lokantası",zh:"于斯屈达尔的老字号食堂",area:"于斯屈达尔 Üsküdar",street:"Selmanipak Caddesi",no:"9",lat:41.0262,lng:29.0157,
+ price:"₺₺ 中等",order:"橄榄油冷菜、鸡肉布丁 tavuk göğsü、鹰嘴豆炖肉、甜点",why:"开了几十年的柜台食堂，橄榄油冷菜是招牌。",tip:"Top 10 路线第二天的终点在于斯屈达尔，晚饭可以来这里。"},
+{id:"havuzlu",kind:"food",type:"lokanta",name:"Havuzlu Restaurant",zh:"大巴扎里面的老餐厅",area:"大巴扎 Kapalıçarşı",street:"Gani Çelebi Sokak",no:"3",lat:41.0105,lng:28.9676,
+ price:"₺₺ 中等",order:"烤肉、炖菜",why:"在大巴扎里面，逛累了吃饭不用出去。",tip:"大巴扎周日关门，这家也跟着休息。Top 10 路线第一天的午饭。"},
+{id:"alibaba",kind:"food",type:"lokanta",name:"Erzincanlı Ali Baba",zh:"苏莱曼尼耶对面的白豆焖饭",area:"苏莱曼尼耶 Süleymaniye",street:"Prof. Sıddık Sami Onar Caddesi",no:"11",lat:41.0158,lng:28.9649,
+ price:"₺ 平价",order:"kuru fasulye（番茄白豆）配 pilav（黄油米饭）",why:"就在清真寺对面的老店，本地人吃了很多年。",tip:"Top 10 路线第一天看完日落顺便吃。"},
+// kebab
+{id:"zubeyir",kind:"food",type:"kebab",badge:"推荐",name:"Zübeyir Ocakbaşı",zh:"炭火烤肉店",area:"贝伊奥卢 Beyoğlu",street:"Bekar Sokak",no:"28",lat:41.0353,lng:28.9832,
+ price:"₺₺ 中等",order:"羊肉串 şiş、Adana 烤肉、茄子烤肉、鹰嘴豆泥",why:"本地人常去的 ocakbaşı，围着炭火吃，看着师傅烤。",tip:"晚餐提前订位。坐在炭炉边很热。"},
+{id:"cag",kind:"food",type:"kebab",name:"Şehzade Erzurum Cağ Kebabı",zh:"横着烤的羊肉串",area:"锡尔凯吉 Sirkeci",street:"Hoca Paşa Sokak",no:"3/A",lat:41.0145,lng:28.9765,
+ price:"₺₺ 中等",order:"cağ kebabı（横放转烤的羊肉）配水牛酸奶、扁豆汤",why:"很少见的东部安纳托利亚烤法，火候好。",tip:"适合午饭，就在 Sirkeci 火车站旁边。"},
+{id:"alioc",kind:"food",type:"kebab",badge:"Bib Gourmand",name:"Ali Ocakbaşı Karaköy",zh:"米其林必比登烤肉店",area:"卡拉柯伊 Karaköy",street:"",no:"",lat:41.0247,lng:28.9800,q:"Ali Ocakbaşı Karaköy",
+ price:"₺₺₺ 偏贵",order:"各式烤肉、冷盘",why:"2026 年米其林 Bib Gourmand。",tip:"晚餐建议订位，用名字在地图上导航。"},
+{id:"doner",kind:"food",type:"kebab",name:"Tarihi Karadeniz Döner",zh:"贝西克塔什的现切土耳其烤肉",area:"贝西克塔什 Beşiktaş",street:"Mumcu Bakkal Sokak",no:"10",lat:41.0428,lng:29.0049,
+ price:"₺ 平价",order:"döner 面包卷",why:"现片现夹，午饭时排长队。",tip:"人多就外带。"},
+// snack / breakfast / sweets
+{id:"van",kind:"food",type:"snack",badge:"早餐",name:"Van Kahvaltı Evi",zh:"东部凡城风味早餐",area:"吉汉吉尔 Cihangir",street:"Defterdar Yokuşu",no:"52",lat:41.0315,lng:28.9851,
+ price:"一人约 450–600 TL（2026 年 4 月）",order:"murtuga（鸡蛋面粉黄油煎）、香草奶酪 otlu peynir、蜂蜜奶油",
+ why:"做东部风味的土耳其早餐，选择多。",tip:"工作日去，周末要排 30 分钟左右。"},
+{id:"kahvalti",kind:"food",type:"snack",name:"Çakmak Kahvaltı Salonu",zh:"贝西克塔什“早餐一条街”",area:"贝西克塔什 Beşiktaş",street:"Çelebioğlu Sokak",no:"",lat:41.0434,lng:29.0063,
+ price:"一人约 400–550 TL",order:"kuymak（奶酪玉米糊）、kaygana（煎蛋饼）",why:"整条街都是早餐店，本地人周末来吃。",tip:"周末很挤，早点去。"},
+{id:"gulluoglu",kind:"food",type:"snack",badge:"推荐",name:"Karaköy Güllüoğlu",zh:"老牌果仁蜜饼 baklava",area:"卡拉柯伊 Karaköy",street:"Rıhtım Caddesi",no:"3-4",lat:41.0232,lng:28.9777,
+ price:"₺ 按块或按重量",order:"开心果 baklava（Fıstıklı Havuç Dilimi）、六种拼盘，配红茶",why:"做 baklava 的老字号，本地人买来送礼。",tip:"在柜台点，站着或坐着吃都行。"},
+{id:"lades",kind:"food",type:"snack",name:"Lades Menemen",zh:"番茄炒蛋 menemen 小馆",area:"贝伊奥卢 Beyoğlu",street:"Sadri Alışık Sokak",no:"11",lat:41.0352,lng:28.9810,
+ price:"₺ 平价",order:"menemen（番茄青椒炒蛋）、蜂蜜奶油 bal-kaymak",why:"本地人吃早午饭的地方。",tip:"11 点后就满了，周末早点去。"},
+{id:"mandabatmaz",kind:"food",type:"snack",name:"Mandabatmaz",zh:"很浓的土耳其咖啡",area:"贝伊奥卢 Beyoğlu",street:"Olivia Geçidi",no:"1/A",lat:41.0330,lng:28.9773,
+ price:"₺ 平价",order:"土耳其咖啡",why:"藏在 İstiklal 旁边的小巷里，坐小凳子喝。",tip:"Top 10 路线第二天顺路。"},
+{id:"balik",kind:"food",type:"snack",name:"Balık ekmek",zh:"加拉塔桥头的鱼肉面包",area:"埃米诺努 Eminönü",street:"",no:"",lat:41.0178,lng:28.9714,q:"Eminönü balık ekmek",
+ price:"₺ 平价",order:"烤鲭鱼面包、腌菜汁 turşu suyu",why:"伊斯坦布尔最有代表性的街头小吃。",tip:"在加拉塔桥南端、Eminönü 码头旁的船上卖，先问价。"},
+// asian
+{id:"shang",kind:"food",type:"asian",badge:"家乡味",name:"Shang Palace",zh:"香格里拉酒店里的粤菜",area:"贝西克塔什 Beşiktaş",street:"",no:"",lat:41.0406,lng:29.0034,q:"Shang Palace Shangri-La Bosphorus Istanbul",
+ price:"₺₺₺ 贵",order:"云吞汤、北京烤鸭、蒜香茄子",why:"环境和出品最稳的中餐。",tip:"伊斯坦布尔中餐不多，想吃得像样就来这里。建议订位。"},
+{id:"noodlehouse",kind:"food",type:"asian",name:"Noodle House",zh:"自选面碗",area:"贝西克塔什 Beşiktaş",street:"",no:"",lat:41.0440,lng:29.0070,q:"Noodle House Beşiktaş Istanbul",
+ price:"₺₺ 中等",order:"自选面碗、炒拉面、春卷",why:"吃腻了烤肉时换换口味。",tip:"中日混合菜单，期待别太高。"},
+// fine
+{id:"neolokal",kind:"food",type:"fine",badge:"米其林一星",name:"Neolokal",zh:"现代安纳托利亚菜",area:"卡拉柯伊 Karaköy",street:"Bankalar Caddesi",no:"11",lat:41.0237,lng:28.9737,q:"Neolokal SALT Galata",
+ price:"₺₺₺ 品鉴菜单",order:"品鉴菜单",why:"2026 年米其林一星，在 SALT Galata 楼上，能看到金角湾。",tip:"提前订位。"},
+{id:"mikla",kind:"food",type:"fine",badge:"米其林一星",name:"Mikla",zh:"屋顶景观餐厅",area:"贝伊奥卢 Beyoğlu",street:"Meşrutiyet Caddesi",no:"15",lat:41.0324,lng:28.9741,q:"Mikla The Marmara Pera",
+ price:"₺₺₺ 品鉴菜单",order:"新土耳其菜品鉴菜单",why:"米其林一星，屋顶能看到老城和金角湾夜景。",tip:"订窗边位，日落时段最抢手。"},
+// hype
+{id:"hafiz",kind:"food",type:"hype",verdict:"meh",vlabel:"可以，但不必排队",name:"Hafız Mustafa 1864",zh:"网红甜品店",area:"锡尔凯吉 Sirkeci",street:"Hamidiye Caddesi",no:"",lat:41.0156,lng:28.9755,q:"Hafız Mustafa 1864 Sirkeci",
+ text:"甜点不错，但游客多、要排队、价格偏高。想吃 baklava 去 Karaköy Güllüoğlu 更划算。"},
+{id:"pierreloti",kind:"food",type:"hype",verdict:"ok",vlabel:"值得，去喝杯茶",name:"Pierre Loti",zh:"金角湾山顶茶座",area:"埃于普 Eyüp",street:"",no:"",lat:41.0535,lng:28.9343,q:"Pierre Loti Kahvesi",
+ text:"坐缆车上山，喝杯茶看金角湾，景色好。茶座的吃的一般，坐坐就好。离市中心较远，可以和巴拉特彩色小屋一起去。"},
+{id:"kumpir",kind:"food",type:"hype",verdict:"meh",vlabel:"好拍，味道一般",name:"Ortaköy Kumpir",zh:"奥塔科伊烤土豆",area:"奥塔科伊 Ortaköy",street:"",no:"",lat:41.0475,lng:29.0262,q:"Ortaköy kumpir",
+ text:"清真寺和大桥一起入镜很好拍；烤土豆加满配料，价格比外面贵，味道普通。"}
+];
+
+const SIGHTS = [
+{id:"ayasofya",kind:"sight",type:"must",name:"Ayasofya",zh:"圣索菲亚大清真寺",area:"苏丹艾哈迈德 Sultanahmet",street:"Sultan Ahmet Mahallesi",no:"",lat:41.0086,lng:28.9802,q:"Hagia Sophia Grand Mosque",
+ price:"外国游客约 25–27.5 欧元，从二楼参观廊参观（一楼留给礼拜）",hours:"礼拜时间外开放；周五 14:00 前关闭",
+ best:"早上开门就到，或傍晚",go:"T1 电车 Sultanahmet 站",tip:"女生包头发、穿长裙或长裤。门口说能带你“免排队”的人不要理。"},
+{id:"bluemosque",kind:"sight",type:"must",name:"Sultanahmet Camii",zh:"蓝色清真寺",area:"苏丹艾哈迈德 Sultanahmet",street:"",no:"",lat:41.0054,lng:28.9768,q:"Blue Mosque Istanbul",
+ price:"免费",hours:"礼拜时间外开放；周五 14:00 前关闭",best:"早上",go:"T1 电车 Sultanahmet 站",tip:"脱鞋进入，门口免费借头巾。"},
+{id:"cistern",kind:"sight",type:"must",name:"Yerebatan Sarnıcı",zh:"地下水宫",area:"苏丹艾哈迈德 Sultanahmet",street:"Alemdar Mahallesi",no:"",lat:41.0084,lng:28.9779,q:"Basilica Cistern",
+ price:"约 1,300–1,500 TL；夜场另价",hours:"每天 9:00 起，最后入场约 16:00（以官网为准）",best:"开门时或午饭后",go:"圣索菲亚对面",tip:"里面暗、地面湿，穿防滑鞋。下雨天的好去处。"},
+{id:"topkapi",kind:"sight",type:"must",name:"Topkapı Sarayı",zh:"托普卡帕宫",area:"苏丹艾哈迈德 Sultanahmet",street:"Cankurtaran",no:"",lat:41.0115,lng:28.9834,q:"Topkapı Palace",
+ price:"约 2,750 TL（含后宫 Harem）；各来源也有写 60–70 欧元",hours:"9:00–17:00，最后入场约 16:00；<b>周二闭馆</b>",best:"9 点开门就进",go:"T1 电车 Gülhane 或 Sultanahmet 站",tip:"至少留 2.5 小时。宫里最后一个庭院能看到博斯普鲁斯海峡入口。"},
+{id:"bazaar",kind:"sight",type:"must",name:"Kapalıçarşı",zh:"大巴扎",area:"贝亚泽特 Beyazıt",street:"",no:"",lat:41.0107,lng:28.9680,q:"Grand Bazaar Istanbul",
+ price:"免费",hours:"9:00–19:00；<b>周日和开斋节、宰牲节关门</b>",best:"上午人少",go:"T1 电车 Beyazıt-Kapalıçarşı 站",tip:"要砍价。别跟着“热心人”去地毯店。"},
+{id:"suleymaniye",kind:"sight",type:"must",name:"Süleymaniye Camii",zh:"苏莱曼尼耶清真寺",area:"苏莱曼尼耶 Süleymaniye",street:"",no:"",lat:41.0162,lng:28.9639,q:"Süleymaniye Mosque",
+ price:"免费",hours:"礼拜时间外开放；周五 14:00 前关闭",best:"日落前，后院看金角湾",go:"从大巴扎往北走约 10 分钟上坡",tip:"锡南的代表作，游客比蓝色清真寺少很多。后院平台是免费的观景台。"},
+{id:"spice",kind:"sight",type:"must",name:"Mısır Çarşısı",zh:"香料市场",area:"埃米诺努 Eminönü",street:"",no:"",lat:41.0166,lng:28.9706,q:"Spice Bazaar Istanbul",
+ price:"免费",hours:"9:00–19:00；开斋节、宰牲节关门",best:"上午",go:"T1 电车 Eminönü 站",tip:"土耳其软糖、香料、坚果可以先试吃；买之前问清楚按什么计价。"},
+{id:"galata",kind:"sight",type:"must",name:"Galata Kulesi",zh:"加拉塔塔",area:"加拉塔 Galata",street:"Bereketzade",no:"",lat:41.0256,lng:28.9741,q:"Galata Tower",
+ price:"约 30 欧元",hours:"8:30–23:00",best:"开门时或很晚，排队短",go:"从加拉塔桥走上去约 20 分钟，或坐 Tünel 老缆车",tip:"楼上平台很窄、人挤人。不想排队就在塔下拍照。"},
+{id:"istiklal",kind:"sight",type:"must",name:"İstiklal Caddesi",zh:"独立大街",area:"贝伊奥卢 Beyoğlu",street:"",no:"",lat:41.0333,lng:28.9776,q:"İstiklal Avenue Galatasaray",
+ price:"免费",hours:"全天",best:"下午到傍晚",go:"从 Tünel 一路走到 Taksim 广场约 1.4 km",tip:"红色怀旧电车 T2 在街上慢慢开。人多，看好包；晚上别跟陌生人去酒吧。"},
+{id:"maiden",kind:"sight",type:"must",name:"Kız Kulesi",zh:"少女塔",area:"于斯屈达尔 Üsküdar",street:"",no:"",lat:41.0211,lng:29.0041,q:"Maiden's Tower",
+ price:"上塔约 27 欧元加往返船票约 5 欧元；在对岸 Salacak 岸边看免费",hours:"9:00–19:00",best:"日落时在 Salacak 岸边看",go:"Üsküdar 码头往南走约 15 分钟到 Salacak",tip:"日落时少女塔在前、老城清真寺剪影在后，是全城最好看的日落之一。"},
+{id:"dolmabahce",kind:"sight",type:"more",name:"Dolmabahçe Sarayı",zh:"多尔玛巴赫切宫",area:"贝西克塔什 Beşiktaş",street:"",no:"",lat:41.0392,lng:29.0005,q:"Dolmabahçe Palace",
+ price:"约 2,000–2,650 TL",hours:"9:00–18:00；闭馆日以官网为准",best:"上午",go:"T1 电车 Kabataş 站步行 10 分钟",tip:"奥斯曼帝国晚期的欧式宫殿，巨大的水晶吊灯很出名。"},
+{id:"ortakoy",kind:"sight",type:"more",name:"Ortaköy Camii",zh:"奥塔科伊清真寺和大桥",area:"奥塔科伊 Ortaköy",street:"",no:"",lat:41.0473,lng:29.0270,q:"Ortaköy Mosque",
+ price:"免费",hours:"礼拜时间外开放",best:"傍晚",go:"Beşiktaş 坐公交或打车约 10 分钟",tip:"清真寺和博斯普鲁斯大桥同框，是经典机位。"},
+{id:"kadikoy",kind:"sight",type:"more",name:"Kadıköy Çarşı",zh:"卡德柯伊市场",area:"卡德柯伊 Kadıköy",street:"",no:"",lat:40.9905,lng:29.0262,q:"Kadıköy Çarşı",
+ price:"免费",hours:"白天",best:"中午到傍晚",go:"Eminönü 或 Karaköy 坐渡轮约 20 分钟",tip:"亚洲区的本地人生活区，鱼市、香料、咖啡馆，配 Çiya 吃午饭。"},
+{id:"balat",kind:"sight",type:"more",name:"Balat",zh:"巴拉特彩色小屋",area:"巴拉特 Balat",street:"",no:"",lat:41.0299,lng:28.9488,q:"Balat Istanbul colorful houses",
+ price:"免费",hours:"白天",best:"上午光线好",go:"Eminönü 坐沿金角湾的公交约 15 分钟",tip:"坡多。居民区，拍照别对着人家门窗。"},
+{id:"chora",kind:"sight",type:"more",name:"Kariye Camii",zh:"卡里耶（Chora）",area:"埃迪尔内卡普 Edirnekapı",street:"",no:"",lat:41.0310,lng:28.9390,q:"Kariye Mosque Chora",
+ price:"清真寺部分免费；历史展区约 20 欧元",hours:"礼拜时间外开放",best:"和巴拉特一起去",go:"巴拉特往西走约 20 分钟上坡",tip:"拜占庭马赛克和壁画非常精美。2024 年起改为清真寺开放。"},
+{id:"bosphorus",kind:"sight",type:"more",name:"Boğaz Turu",zh:"博斯普鲁斯海峡游船",area:"埃米诺努 Eminönü",street:"",no:"",lat:41.0175,lng:28.9757,q:"Eminönü Boğaz İskelesi Şehir Hatları",
+ price:"公共渡轮短线约 1–1.5 小时，票价以官方窗口为准；私人日落游船约 30–60 欧元",hours:"短线夏季约每小时一班；长线约 10:35 出发",best:"下午到日落",go:"T1 电车 Eminönü 站，Boğaz İskelesi 码头",tip:"去官方窗口买。最省钱的看海峡方式：坐通勤渡轮 Karaköy↔Kadıköy 或 Kabataş↔Üsküdar。"},
+// rainy
+{id:"archaeo",kind:"sight",type:"rain",name:"İstanbul Arkeoloji Müzeleri",zh:"伊斯坦布尔考古博物馆",area:"苏丹艾哈迈德 Sultanahmet",street:"",no:"",lat:41.0117,lng:28.9810,q:"Istanbul Archaeology Museums",
+ price:"约 15–17 欧元",hours:"9:00–20:00；周一闭馆（以官网为准）",best:"雨天",go:"托普卡帕宫外的 Gülhane 公园旁",tip:"“亚历山大石棺”是镇馆之宝。"},
+{id:"hamam",kind:"sight",type:"rain",name:"Kılıç Ali Paşa Hamamı",zh:"锡南设计的土耳其浴",area:"托普哈内 Tophane",street:"",no:"",lat:41.0245,lng:28.9810,q:"Kılıç Ali Paşa Hamamı",
+ price:"以官网为准，需预约",hours:"有女性专用时段（以官网为准）",best:"雨天或走累了",go:"T1 电车 Tophane 站",tip:"16 世纪锡南设计、修复得很好的浴室。别去游客区路边拉客的“hamam 套餐”。"},
+// day trip
+{id:"princes",kind:"sight",type:"trip",badge:"最近",name:"Büyükada",zh:"王子群岛（大岛）",area:"马尔马拉海",street:"",no:"",lat:40.8590,lng:29.1210,q:"Büyükada İskelesi",
+ price:"渡轮刷 İstanbulkart",hours:"白天",best:"天气好的一天",go:"Kabataş 或 Eminönü 坐渡轮约 1.5 小时",tip:"岛上没有机动车，骑车或走路，海边吃鱼。纸票不能坐这条渡轮。"},
+// trap-only
+{id:"sultanx",kind:"sight",type:"x",name:"Sultanahmet terrace restaurants",zh:"苏丹艾哈迈德拉客餐厅",area:"苏丹艾哈迈德",street:"",no:"",lat:41.0070,lng:28.9760,q:"Sultanahmet Square",price:"",hours:"",best:"",go:"",tip:""},
+{id:"istiklalx",kind:"sight",type:"x",name:"İstiklal back streets",zh:"İstiklal 后巷酒吧",area:"贝伊奥卢",street:"",no:"",lat:41.0350,lng:28.9810,q:"İstiklal Caddesi",price:"",hours:"",best:"",go:"",tip:""},
+// transit
+{id:"taksim",kind:"transit",type:"transit",name:"Taksim Meydanı",zh:"塔克西姆广场（M2、F1 缆车）",area:"贝伊奥卢",street:"",no:"",lat:41.0369,lng:28.9851,q:"Taksim Square"},
+{id:"eminonu",kind:"transit",type:"transit",name:"Eminönü İskelesi",zh:"埃米诺努码头（T1、渡轮）",area:"埃米诺努",street:"",no:"",lat:41.0175,lng:28.9740,q:"Eminönü İskelesi"},
+{id:"karakoyferry",kind:"transit",type:"transit",name:"Karaköy İskelesi",zh:"卡拉柯伊码头（去 Kadıköy 的渡轮）",area:"卡拉柯伊",street:"",no:"",lat:41.0218,lng:28.9765,q:"Karaköy İskelesi"},
+{id:"uskudar",kind:"transit",type:"transit",name:"Üsküdar İskelesi",zh:"于斯屈达尔码头（渡轮、Marmaray）",area:"于斯屈达尔",street:"",no:"",lat:41.0265,lng:29.0135,q:"Üsküdar İskelesi"},
+{id:"ist",kind:"transit",type:"transit",name:"İstanbul Havalimanı",zh:"伊斯坦布尔机场 IST",area:"阿尔纳武特柯伊",street:"",no:"",lat:41.2753,lng:28.7519,q:"Istanbul Airport"},
+{id:"saw",kind:"transit",type:"transit",name:"Sabiha Gökçen Havalimanı",zh:"萨比哈·格克琴机场 SAW",area:"彭迪克",street:"",no:"",lat:40.8986,lng:29.3092,q:"Sabiha Gökçen Airport"}
+];
+P.push(...SIGHTS);
+const BY = Object.fromEntries(P.map(p=>[p.id,p]));
+
+const HYPE = [
+ {ref:"hafiz"},
+ {ref:"gulluoglu",v:"ok",l:"值得",x:"老字号 baklava，比网红店实在。"},
+ {ref:"ciya",v:"ok",l:"值得",x:"小红书上很火，但确实是本地人公认的好店，坐渡轮过去也是一种体验。"},
+ {ref:"balik",v:"meh",l:"尝个新鲜",x:"桥头船上的鱼面包是招牌体验，价格不算便宜，味道看运气。先问价。"},
+ {ref:"pierreloti"},
+ {ref:"kumpir"},
+ {t:"土耳其冰淇淋表演 Maraş dondurma",v:"warn",l:"看看就好",x:"小贩逗客人的表演很好玩，但先问清楚一份多少钱，别被按“表演费”加价。"},
+ {ref:"van",v:"ok",l:"值得",x:"东部风味早餐很有特色，工作日去不用排队。"},
+ {t:"苏丹艾哈迈德的屋顶景观餐厅",v:"skip",l:"只看不吃",x:"门口拉客、菜单有游客价，还可能多收面包和水的钱。想看景，吃完饭去苏莱曼尼耶后院。"}
+];
+
+const PHOTO = [
+ ["苏莱曼尼耶后院平台","免费，日落时看金角湾和加拉塔塔。","suleymaniye"],
+ ["Salacak 岸边看少女塔","日落时老城清真寺剪影在后，全城最美日落之一。","maiden"],
+ ["加拉塔桥上","钓鱼的人、海鸥、清真寺天际线，傍晚最好看。","spice"],
+ ["奥塔科伊清真寺 + 大桥","经典同框机位，傍晚灯亮起来最好。","ortakoy"],
+ ["巴拉特彩色小屋","上午光线好，注意别对着人家门窗。","balat"],
+ ["蓝色清真寺广场","早上人少，清真寺和喷泉同框。","bluemosque"],
+ ["渡轮上看海峡","Karaköy→Kadıköy 渡轮，日落时坐，一次刷卡的钱。","karakoyferry"]
+];
+
+const DAYS = [
+ {n:"Day 1",t:"老城：清真寺、宫殿和巴扎",note:"按 Top 10 路线第一天走。别排在周五（清真寺中午关闭）和周日（大巴扎关门）。",stops:[["bluemosque","蓝色清真寺"],["ayasofya","圣索菲亚"],["cistern","地下水宫"],["havuzlu","午饭 Havuzlu"],["bazaar","大巴扎"],["suleymaniye","苏莱曼尼耶看日落"],["alibaba","晚饭白豆焖饭"]]},
+ {n:"Day 2",t:"从宫殿到亚洲岸",note:"按 Top 10 路线第二天走。托普卡帕宫周二闭馆。",stops:[["topkapi","托普卡帕宫"],["spice","香料市场，午饭 Pandeli"],["galata","走过加拉塔桥上加拉塔塔"],["istiklal","İstiklal 大街到 Taksim"],["maiden","缆车 + 渡轮去于斯屈达尔看少女塔日落"],["kanaat","晚饭 Kanaat"]]},
+ {n:"Day 3",t:"亚洲区和海峡",stops:[["karakoyferry","Karaköy 坐渡轮去 Kadıköy"],["kadikoy","逛 Kadıköy 市场"],["ciya","午饭 Çiya"],["bosphorus","回 Eminönü 坐公共渡轮游海峡"],["karakoylok","晚饭 Karaköy Lokantası（订位）"]]},
+ {n:"Day 4",t:"金角湾和新城",stops:[["balat","巴拉特彩色小屋"],["chora","卡里耶（Chora）"],["pierreloti","缆车上 Pierre Loti 喝茶"],["dolmabahce","多尔玛巴赫切宫（下午）"],["ortakoy","奥塔科伊清真寺看傍晚"]]},
+ {n:"Day 5",t:"可选：王子群岛",noroute:true,stops:[["karakoyferry","Kabataş 或 Eminönü 坐渡轮"],["princes","大岛骑车、吃海鲜"]]}
+];
+
+const PRESETS = [
+ {label:"苏丹艾哈迈德（老城）",lat:41.0070,lng:28.9770},
+ {label:"锡尔凯吉 / 埃米诺努",lat:41.0150,lng:28.9760},
+ {label:"加拉塔 / 卡拉柯伊",lat:41.0240,lng:28.9760},
+ {label:"Taksim / İstiklal",lat:41.0350,lng:28.9830},
+ {label:"吉汉吉尔 Cihangir",lat:41.0315,lng:28.9850},
+ {label:"尼尚塔什 Nişantaşı",lat:41.0510,lng:28.9930},
+ {label:"贝西克塔什 Beşiktaş",lat:41.0430,lng:29.0060},
+ {label:"卡德柯伊 Kadıköy（亚洲区）",lat:40.9910,lng:29.0270},
+ {label:"伊斯坦布尔机场 IST",lat:41.2753,lng:28.7519},
+ {label:"萨比哈机场 SAW",lat:40.8986,lng:29.3092}
+];
+
+/* ---------- storage ---------- */
+const store = {
+ get(k,d){try{const v=localStorage.getItem(k);return v==null?d:JSON.parse(v)}catch(e){return d}},
+ set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+const EXAMPLE = {lat:41.0070,lng:28.9770,label:"苏丹艾哈迈德（老城）",example:true};
+let hotel = store.get("ist-hotel", null) || EXAMPLE;
+let favs = new Set(store.get("ist-favs", []));
+const S = {tab:"food",food:"all",sight:"top10",dist:"all",foodNear:false,sightNear:false,sel:null,pending:null,q:"",day:0};
+S.tab = store.get("ist-tab","food");
+const h0 = (location.hash||"").replace("#","");
+if (["food","sights","dist","go","notes"].includes(h0)) S.tab = h0;
+
+/* ---------- helpers ---------- */
+const $ = s => document.querySelector(s);
+const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rich = s => esc(s).replace(/&lt;b&gt;/g,"<b>").replace(/&lt;\/b&gt;/g,"</b>");
+function hav(a,b){const R=6371,r=Math.PI/180;const dLa=(b.lat-a.lat)*r,dLo=(b.lng-a.lng)*r;const x=Math.sin(dLa/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dLo/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
+function fmtD(d){if(d<1)return Math.max(10,Math.round(d*100)*10)+" m";if(d<10)return d.toFixed(1)+" km";return Math.round(d)+" km";}
+function crossesWater(a,b){const asia=p=>p.lng>29.0&&p.lat<41.03||p.lng>29.035;return asia(a)!==asia(b);}
+function advise(d,a,b){
+ const walk=Math.round(d*1.3/4.5*60);
+ const cross=a&&b&&crossesWater(a,b);
+ if(cross&&d<15){const t=Math.round(d*1.4/16*60+15);return {cls:"transit",label:"要过海：坐渡轮或 Marmaray",note:`约 ${t} 分钟（含等船）`};}
+ if(d<0.9) return {cls:"walk",label:"走路就到",note:`步行约 ${walk} 分钟`};
+ if(d<2.5) return {cls:"walk",label:"步行或坐电车",note:`步行约 ${walk} 分钟，不少是上坡；可坐 1–3 站 T1 电车`};
+ if(d<10){const t=Math.round(d*1.35/18*60+10);return {cls:"transit",label:"坐电车 / 地铁 / 渡轮",note:`公共交通约 ${t} 分钟（含等车）`};}
+ if(d<45){const t=Math.round(d*1.3/30*60+15);return {cls:"transit",label:"地铁换乘，或打车",note:`约 ${t} 分钟，堵车会更久`};}
+ return {cls:"far",label:"一日游距离",note:"见景点里的交通说明"};
+}
+function qOf(p){return p.q || [p.name, p.street ? (p.street+(p.no?" "+p.no:"")) : "", CITY].filter(Boolean).join(", ");}
+function navUrl(p,mode){return `https://www.google.com/maps/dir/?api=1&origin=${hotel.lat},${hotel.lng}&destination=${encodeURIComponent(qOf(p))}&travelmode=${mode}`;}
+function navUrlCoord(c,mode){return `https://www.google.com/maps/dir/?api=1&origin=${hotel.lat},${hotel.lng}&destination=${c.lat},${c.lng}&travelmode=${mode}`;}
+function norm(s){return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").replace(/ı/g,"i").toLowerCase();}
+
+function parseCoords(t){
+ if(!t) return null; t=t.trim();
+ const pats=[/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/,/@(-?\d+\.\d+),\s*(-?\d+\.\d+)/,
+  /[?&](?:q|ll|sll|query|destination|daddr|coordinate|center)=(-?\d+\.\d+)(?:,|%2C)\s*(-?\d+\.\d+)/i,
+  /(-?\d{1,2}\.\d{3,})\s*[,，]\s*(-?\d{1,3}\.\d{3,})/,/(-?\d{1,2}\.\d{3,})\s+(-?\d{1,3}\.\d{3,})/];
+ for(const r of pats){const m=t.match(r);if(m){const lat=+m[1],lng=+m[2];if(Math.abs(lat)<=90&&Math.abs(lng)<=180)return {lat,lng};}}
+ const d=t.match(/(\d+)°\s*(\d+)['′]\s*([\d.]+)["″]?\s*([NS])[\s,，]*(\d+)°\s*(\d+)['′]\s*([\d.]+)["″]?\s*([EW])/i);
+ if(d){let lat=+d[1]+d[2]/60+d[3]/3600,lng=+d[5]+d[6]/60+d[7]/3600;if(/s/i.test(d[4]))lat=-lat;if(/w/i.test(d[8]))lng=-lng;return {lat,lng};}
+ return null;
+}
+function parseError(t){
+ if(/goo\.gl|maps\.app/i.test(t)) return "这是分享短链接，里面没有坐标。请在浏览器打开它，复制地址栏里的完整链接；或者在地图里长按酒店，复制坐标。";
+ return "没认出坐标。请粘贴形如 41.0082, 28.9784 的坐标，或 Google 地图的完整链接。";
+}
+const CENTER={lat:41.0082,lng:28.9784};
+const CENTER_NAME="苏丹艾哈迈德广场";
+
+/* ---------- favorites ---------- */
+function favBtn(p){
+ const on=favs.has(p.id);
+ return `<button class="fav" type="button" data-fav="${p.id}" aria-pressed="${on}" aria-label="${on?"移出想去清单":"加入想去清单"}"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.1 1 5.8L12 16.9l-5.2 2.7 1-5.8-4.3-4.1 5.9-.8z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>${on?"想去":""}</button>`;
+}
+function toggleFav(id){favs.has(id)?favs.delete(id):favs.add(id);store.set("ist-favs",[...favs]);renderAll();}
+
+/* ---------- card ---------- */
+function distBlock(p){
+ const d=hav(hotel,p),a=advise(d,hotel,p);
+ return `<div class="dist ${a.cls}"><span class="km">${fmtD(d)}</span><span class="how"><b>${a.label}</b><span>${a.note}</span></span></div>`;
+}
+function addrLine(p){
+ const plate=p.no?`<span class="plate">${esc(p.no)}</span>`:"";
+ const st=p.street?`<span class="addr">${esc(p.street)} ${plate}</span>`:"";
+ return `<div class="meta">${st}<span>${esc(p.area)}</span>${p.badge?`<span class="tag">${esc(p.badge)}</span>`:""}</div>`;
+}
+function actions(p,noMap){
+ const d=hav(hotel,p),walk=d<2.5&&!crossesWater(hotel,p),far=d>45;
+ const primary=walk?["walking","步行导航"]:["transit","公交导航"];
+ const second=walk?["transit","公交导航"]:["walking","步行导航"];
+ return `<div class="actions">
+  <a class="btn primary" href="${navUrl(p,far?"transit":primary[0])}" target="_blank" rel="noopener">${far?"查看路线":primary[1]}</a>
+  ${far?"":`<a class="btn" href="${navUrl(p,second[0])}" target="_blank" rel="noopener">${second[1]}</a>`}
+  ${noMap?"":`<button class="btn" type="button" data-onmap="${p.id}">地图上看</button>`}</div>`;
+}
+function foodCard(p){
+ return `<article class="place"><div class="place-top"><span class="sign">${esc(p.name)}</span>${favBtn(p)}</div>
+  <p class="zh">${esc(p.zh)}</p>${addrLine(p)}
+  <dl class="facts"><div><dt>价位</dt><dd>${esc(p.price)}</dd></div><div><dt>必点</dt><dd>${esc(p.order)}</dd></div></dl>
+  <details class="more"><summary>为什么靠谱 · 提醒</summary><dl class="facts"><div><dt>靠谱在</dt><dd>${esc(p.why)}</dd></div><div><dt>提醒</dt><dd>${esc(p.tip)}</dd></div></dl></details>
+  ${distBlock(p)}${actions(p)}</article>`;
+}
+function sightCard(p){
+ return `<article class="place"><div class="place-top"><span class="sign">${esc(p.name)}</span>${favBtn(p)}</div>
+  <p class="zh">${esc(p.zh)}</p>${addrLine(p)}
+  <dl class="facts"><div><dt>门票</dt><dd>${esc(p.price)}</dd></div><div><dt>时间</dt><dd>${rich(p.hours)}</dd></div></dl>
+  <details class="more"><summary>最佳时段 · 交通 · 提醒</summary><dl class="facts"><div><dt>最佳</dt><dd>${esc(p.best)}</dd></div><div><dt>交通</dt><dd>${esc(p.go)}</dd></div><div><dt>提醒</dt><dd>${esc(p.tip)}</dd></div></dl></details>
+  ${distBlock(p)}${actions(p)}</article>`;
+}
+const VCLS={ok:"v-ok",warn:"v-warn",meh:"v-meh",skip:"v-skip"};
+function hypeRow(h){
+ const p=h.ref?BY[h.ref]:null;
+ const v=h.v||p.verdict, l=h.l||p.vlabel, x=h.x||p.text, t=h.t||(p.name+" · "+p.zh);
+ return `<div class="hype-row"><div class="hype-head"><h3>${esc(t)}</h3><span class="verdict ${VCLS[v]}">${esc(l)}</span></div><p>${esc(x)}</p>${p?distBlock(p)+actions(p):""}</div>`;
+}
+
+/* ---------- illustrations (original drawings) ---------- */
+function svgWrap(label,inner){return `<svg class="illus" viewBox="0 0 360 202" role="img" aria-label="${label}插画" preserveAspectRatio="xMidYMid slice">${inner}</svg>`;}
+function rep(n,f){let o="";for(let i=0;i<n;i++)o+=f(i);return o;}
+function minaret(x,base,top,w,col){col=col||"var(--stone)";return `<rect x="${x-w/2}" y="${top}" width="${w}" height="${base-top}" fill="${col}"/><rect x="${x-w/2-2}" y="${top+(base-top)*0.35}" width="${w+4}" height="3" fill="var(--stone-2)"/><rect x="${x-w/2-2}" y="${top+(base-top)*0.12}" width="${w+4}" height="3" fill="var(--stone-2)"/><path d="M${x-w/2-1} ${top}l${w/2+1} -${w*2.6} ${w/2+1} ${w*2.6}z" fill="var(--dome)"/>`;}
+function dome(cx,y,r,col){return `<path d="M${cx-r} ${y}A${r} ${r*0.92} 0 0 1 ${cx+r} ${y}z" fill="${col||"var(--dome)"}"/><rect x="${cx-0.8}" y="${y-r*0.92-8}" width="1.6" height="8" fill="var(--star)"/>`;}
+function mosqueScene(o){
+ const sky=o.sky||"var(--sky)";
+ let g=`<rect width="360" height="202" fill="${sky}"/>`;
+ if(o.sun) g+=`<circle cx="${o.sun[0]}" cy="${o.sun[1]}" r="18" fill="var(--star)" opacity=".85"/>`;
+ if(o.water) g+=`<rect y="168" width="360" height="34" fill="var(--river)"/>`;
+ const by=o.water?168:176;
+ g+=`<rect y="${by}" width="360" height="${202-by}" fill="${o.water?"var(--river)":"var(--stone-2)"}"/>`;
+ (o.minarets||[]).forEach(x=>{g+=minaret(x,by,o.mtop||40,6,o.wall);});
+ g+=`<rect x="${o.x0}" y="${o.wy}" width="${o.x1-o.x0}" height="${by-o.wy}" fill="${o.wall||"var(--stone)"}"/>`;
+ g+=rep(Math.floor((o.x1-o.x0-10)/16),i=>`<path d="M${o.x0+10+i*16} ${by-6}v-12a3.5 3.5 0 0 1 7 0v12z" fill="var(--shade)"/>`);
+ (o.small||[]).forEach(([cx,r])=>{g+=dome(cx,o.wy,r);});
+ (o.semi||[]).forEach(([cx,y,r])=>{g+=`<rect x="${cx-r}" y="${y}" width="${2*r}" height="${o.wy-y}" fill="${o.wall||"var(--stone)"}"/>`+dome(cx,y,r);});
+ g+=`<rect x="${o.cx-o.r-6}" y="${o.dy}" width="${2*o.r+12}" height="${o.wy-o.dy+1}" fill="${o.wall||"var(--stone)"}"/>`;
+ g+=rep(8,i=>`<rect x="${o.cx-o.r+4+i*(2*o.r-8)/8}" y="${o.dy+3}" width="3" height="6" fill="var(--shade)"/>`);
+ g+=dome(o.cx,o.dy,o.r);
+ if(o.gulls) g+=rep(4,i=>`<path d="M${40+i*55} ${30+(i%2)*12}q5 -5 10 0q5 -5 10 0" fill="none" stroke="var(--shade)" stroke-width="1.6"/>`);
+ return g;
+}
+function artAyasofya(){return svgWrap("圣索菲亚",mosqueScene({minarets:[42,92,268,318],mtop:46,x0:64,x1:296,wy:118,cx:180,dy:84,r:62,semi:[[118,100,28],[242,100,28]],small:[[86,12],[274,12]],wall:"var(--roof)"}).replace(/var\(--roof\)/g,"color-mix(in srgb,var(--roof) 38%,var(--stone))"));}
+function artBlue(){return svgWrap("蓝色清真寺",mosqueScene({minarets:[22,62,104,256,298,338],mtop:30,x0:80,x1:280,wy:124,cx:180,dy:92,r:48,semi:[[132,108,22],[228,108,22],[180,116,18]],small:[[100,10],[260,10],[116,8],[244,8]],gulls:true}));}
+function artSuleymaniye(){
+ let g=`<defs><linearGradient id="sun1" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--night)"/><stop offset="1" stop-color="var(--roof)"/></linearGradient></defs>`;
+ g+=mosqueScene({sky:"url(#sun1)",sun:[300,120],water:true,minarets:[60,94,266,300],mtop:36,x0:84,x1:276,wy:122,cx:180,dy:88,r:52,semi:[[128,104,24],[232,104,24]],small:[[104,10],[256,10]],wall:"var(--shade)"});
+ g=g.replace(/fill="var\(--dome\)"/g,'fill="var(--night)"').replace(/fill="var\(--shade\)"/g,'fill="var(--night)"').replace(/fill="var\(--stone-2\)"/g,'fill="var(--night)"');
+ g+=rep(10,i=>`<rect x="${20+i*34}" y="${176+(i%3)*7}" width="${14+(i%2)*8}" height="2" rx="1" fill="var(--star)" opacity=".55"/>`);
+ return svgWrap("苏莱曼尼耶清真寺日落",g);
+}
+function artCistern(){
+ let g=`<rect width="360" height="202" fill="var(--night)"/>`;
+ for(let row=0;row<3;row++){const y0=40+row*22,h=120-row*28,sp=70-row*16,w=12-row*3;const off=(row%2)*sp/2;
+  for(let x=-20+off;x<380;x+=sp){g+=`<rect x="${x}" y="${y0}" width="${w}" height="${h}" fill="var(--star)" opacity="${0.35+row*0.2}"/><path d="M${x-w*0.6} ${y0}h${w*2.2}l-${w*0.6} 8h-${w}z" fill="var(--star)" opacity="${0.35+row*0.2}"/>`;}}
+ g+=rep(6,i=>`<path d="M${i*60-10} 40q30 -24 60 0" fill="none" stroke="var(--star)" stroke-opacity=".3" stroke-width="2"/>`);
+ g+=`<rect y="160" width="360" height="42" fill="var(--river)" opacity=".55"/>`;
+ g+=rep(14,i=>`<rect x="${10+i*26}" y="${168+(i%3)*9}" width="${10+(i%2)*6}" height="2" rx="1" fill="var(--star)" opacity=".4"/>`);
+ g+=`<g transform="translate(180 150)"><circle r="16" fill="var(--stone-2)"/>${rep(8,i=>{const a=i*Math.PI/4;return `<path d="M${(Math.cos(a)*14).toFixed(1)} ${(Math.sin(a)*14).toFixed(1)}q${(Math.cos(a+0.6)*10).toFixed(1)} ${(Math.sin(a+0.6)*10).toFixed(1)} ${(Math.cos(a)*24).toFixed(1)} ${(Math.sin(a)*24).toFixed(1)}" fill="none" stroke="var(--stone-2)" stroke-width="3" stroke-linecap="round"/>`;})}<circle cx="-5" cy="-3" r="2" fill="var(--night)"/><circle cx="5" cy="-3" r="2" fill="var(--night)"/></g>`;
+ return svgWrap("地下水宫",g);
+}
+function artBazaar(){
+ let g=`<rect width="360" height="202" fill="var(--stone)"/>`;
+ g+=rep(5,i=>{const y=10+i*14,w=360-i*56;const x=(360-w)/2;return `<path d="M${x} ${y+40}Q180 ${y-10} ${x+w} ${y+40}" fill="none" stroke="var(--red)" stroke-width="${7-i}" opacity="${0.9-i*0.12}"/><path d="M${x+6} ${y+44}Q180 ${y} ${x+w-6} ${y+44}" fill="none" stroke="var(--blue)" stroke-width="${3-i*0.4}" opacity=".7"/>`;});
+ g+=`<path d="M0 202L150 110h60L360 202z" fill="var(--stone-2)"/>`;
+ g+=rep(6,i=>`<line x1="${70+i*44}" y1="${30+i%2*6}" x2="${70+i*44}" y2="${58+i%2*6}" stroke="var(--shade)" stroke-width="1.2"/><circle cx="${70+i*44}" cy="${64+i%2*6}" r="7" fill="${["var(--red)","var(--tile)","var(--star)","var(--blue)"][i%4]}"/>`);
+ g+=rep(5,i=>`<rect x="${4}" y="${96+i*18}" width="${40-i*4}" height="14" fill="${["var(--red)","var(--tile)","var(--star)","var(--blue)","var(--roof)"][i]}"/><rect x="${316+i*4}" y="${96+i*18}" width="${40-i*4}" height="14" fill="${["var(--tile)","var(--star)","var(--red)","var(--roof)","var(--blue)"][i]}"/>`);
+ return svgWrap("大巴扎",g);
+}
+function artTopkapi(){
+ let g=`<rect width="360" height="202" fill="var(--sky)"/><rect y="168" width="360" height="34" fill="var(--hill)"/>`;
+ g+=`<rect x="70" y="92" width="220" height="80" fill="var(--stone)"/>`+rep(10,i=>`<path d="M${84+i*20} 104v14a4 4 0 0 0 8 0v-14z" fill="var(--shade)"/>`);
+ g+=`<path d="M160 172v-36a20 20 0 0 1 40 0v36z" fill="var(--night)"/><rect x="150" y="84" width="60" height="10" fill="var(--stone-2)"/>`;
+ [[92,56],[268,56]].forEach(([x,top])=>{g+=`<rect x="${x-18}" y="${top}" width="36" height="${172-top}" fill="var(--stone)"/><rect x="${x-20}" y="${top}" width="40" height="5" fill="var(--stone-2)"/><path d="M${x-22} ${top}l22 -44 22 44z" fill="var(--dome)"/>`+rep(3,j=>`<rect x="${x-3}" y="${top+16+j*30}" width="6" height="12" fill="var(--shade)"/>`);});
+ g+=`<rect x="84" y="136" width="192" height="4" fill="var(--tile)"/>`;
+ return svgWrap("托普卡帕宫崇敬门",g);
+}
+function artSpice(){
+ let g=`<rect width="360" height="202" fill="var(--stone)"/>`;
+ g+=`<path d="M20 120V60a160 60 0 0 1 320 0v60z" fill="var(--stone-2)"/><path d="M40 120V68a140 50 0 0 1 280 0v52z" fill="var(--sky)"/>`;
+ g+=rep(7,i=>`<line x1="${60+i*40}" y1="64" x2="${60+i*40}" y2="84" stroke="var(--shade)" stroke-width="1.2"/><path d="M${54+i*40} 84h12l-3 10h-6z" fill="var(--star)"/>`);
+ g+=`<rect y="150" width="360" height="52" fill="var(--shade)"/>`;
+ const cols=["var(--red)","var(--star)","var(--roof)","var(--tile)","var(--hill)","var(--red)","var(--star)"];
+ g+=rep(7,i=>{const cx=30+i*50;return `<rect x="${cx-22}" y="146" width="44" height="12" fill="var(--stone-2)"/><path d="M${cx-20} 148Q${cx} ${92+(i%3)*10} ${cx+20} 148z" fill="${cols[i]}"/>`;});
+ return svgWrap("香料市场",g);
+}
+function artGalata(){
+ let g=`<rect width="360" height="202" fill="var(--sky)"/><rect y="170" width="360" height="32" fill="var(--river)"/>`;
+ g+=rep(9,i=>{const x=i*42-10,h=40+((i*37)%40);return `<rect x="${x}" y="${170-h}" width="40" height="${h}" fill="${["var(--stone)","var(--stone-2)","color-mix(in srgb,var(--roof) 40%,var(--stone))"][i%3]}"/><path d="M${x-2} ${170-h}l22 -12 22 12z" fill="var(--roof)"/>`+rep(2,j=>`<rect x="${x+8+j*14}" y="${180-h}" width="7" height="10" fill="var(--shade)"/>`);});
+ g+=`<rect x="152" y="52" width="56" height="120" fill="var(--stone-2)"/><rect x="148" y="74" width="64" height="8" fill="var(--stone)"/>`+rep(4,i=>`<path d="M${158+i*12} 96v-8a3 3 0 0 1 6 0v8z" fill="var(--shade)"/><path d="M${158+i*12} 130v-10a3 3 0 0 1 6 0v10z" fill="var(--shade)"/>`);
+ g+=`<path d="M146 54l34 -46 34 46z" fill="var(--dome)"/><rect x="179" y="0" width="2" height="10" fill="var(--star)"/>`;
+ g+=rep(3,i=>`<path d="M${60+i*90} ${30+(i%2)*14}q5 -5 10 0q5 -5 10 0" fill="none" stroke="var(--shade)" stroke-width="1.6"/>`);
+ return svgWrap("加拉塔塔",g);
+}
+function artIstiklal(){
+ let g=`<rect width="360" height="202" fill="var(--sky)"/>`;
+ g+=`<path d="M0 0h110l40 150H0z" fill="var(--stone)"/><path d="M360 0H250l-40 150h150z" fill="var(--stone-2)"/>`;
+ g+=rep(4,i=>`<rect x="${12+i*22}" y="${20+i*0}" width="12" height="${120-i*18}" fill="var(--shade)" opacity=".35"/>`);
+ g+=rep(5,i=>`<path d="M${16+i*6} ${30+i*24}h44" stroke="var(--red)" stroke-width="3"/><path d="M${300-i*6} ${30+i*24}h44" stroke="var(--tile)" stroke-width="3"/>`);
+ g+=`<path d="M150 150L0 202h360L210 150z" fill="var(--stone-2)"/><path d="M178 150L150 202M182 150L210 202" stroke="var(--shade)" stroke-width="2"/>`;
+ g+=`<rect x="128" y="112" width="104" height="56" rx="6" fill="var(--red)"/><rect x="128" y="160" width="104" height="8" fill="var(--roof)"/>`+rep(4,i=>`<rect x="${136+i*24}" y="120" width="18" height="16" rx="2" fill="var(--sky)"/>`);
+ g+=`<rect x="140" y="140" width="80" height="4" fill="var(--star)"/><path d="M180 112v-18l14 -8" stroke="var(--shade)" stroke-width="2" fill="none"/><line x1="0" y1="86" x2="360" y2="86" stroke="var(--shade)" stroke-width="1"/>`;
+ return svgWrap("İstiklal 大街红色电车",g);
+}
+function artMaiden(){
+ let g=`<defs><linearGradient id="sun2" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--night)"/><stop offset="1" stop-color="var(--roof)"/></linearGradient></defs><rect width="360" height="202" fill="url(#sun2)"/><circle cx="270" cy="110" r="20" fill="var(--star)" opacity=".85"/>`;
+ g+=`<path d="M0 118h40v-10h10v10h30v-6h12l10 -14 10 14h40v8h30v-12l12 -10 12 10v12h50v-8h12v8h92v14H0z" fill="var(--night)"/>`;
+ g+=[[52,96],[118,84],[208,90],[300,98]].map(([x,t])=>`<rect x="${x}" y="${t}" width="3" height="${118-t}" fill="var(--night)"/>`).join("");
+ g+=`<rect y="130" width="360" height="72" fill="var(--river)"/>`+rep(12,i=>`<rect x="${200+((i*37)%140)}" y="${136+i*5}" width="${12+(i%3)*8}" height="2" rx="1" fill="var(--star)" opacity=".6"/>`);
+ g+=`<path d="M120 168h70l-8 10h-54z" fill="var(--night)"/><rect x="134" y="120" width="34" height="48" fill="var(--night)"/><rect x="146" y="92" width="12" height="28" fill="var(--night)"/><path d="M144 92l8 -18 8 18z" fill="var(--night)"/><rect x="138" y="128" width="26" height="4" fill="var(--star)" opacity=".7"/>`;
+ return svgWrap("少女塔日落",g);
+}
+
+/* ---------- Top 10 two-day route ---------- */
+const ROUTE = [
+ {title:"第一天 · 老城",sub:"清真寺、水宫、巴扎，苏莱曼尼耶看日落",start:"建议 8:45 出发",note:"别排在周五（清真寺中午到 14:00 关闭）和周日（大巴扎关门）。",
+  bounds:{lat0:41.0185,lat1:41.0030,lng0:28.9600,lng1:28.9860},
+  stops:[
+   {id:"bluemosque",time:"8:45 左右",art:artBlue,why:"六根宣礼塔、两万多块伊兹尼克蓝瓷砖，是伊斯坦布尔的标志。",tip:"免费。早上开门后人少；脱鞋进入，门口免费借头巾。"},
+   {id:"ayasofya",time:"10:00 左右",art:artAyasofya,why:"建于 537 年，当过教堂、清真寺、博物馆，近 1,500 年的历史都在这座建筑里。",tip:"外国游客约 25–27.5 欧元，走二楼参观廊。排队可能 30–60 分钟。"},
+   {id:"cistern",time:"11:30 左右",art:artCistern,why:"6 世纪的地下蓄水池，几百根石柱倒映在水里，角落还有美杜莎头像柱基。",tip:"约 1,300–1,500 TL。里面暗、地面湿。"},
+   {id:"bazaar",time:"13:00–15:30",art:artBazaar,why:"世界上最古老、最大的室内市场之一，几千家店铺。",tip:"在里面的 Havuzlu 吃午饭。要砍价，别跟“热心人”去地毯店。周日关门。"},
+   {id:"suleymaniye",time:"日落前（10 月底约 18 点，11–12 月约 17 点）",art:artSuleymaniye,why:"建筑师锡南的代表作，后院平台免费俯瞰金角湾和加拉塔塔。",tip:"免费。看完日落在对面 Erzincanlı Ali Baba 吃白豆焖饭。"}
+  ],
+  legs:[
+   {segs:[{m:"walk",v:[[41.0054,28.9768],[41.0066,28.9778],[41.0078,28.9792],[41.0086,28.9802]]}],text:"穿过苏丹艾哈迈德广场（古代赛马场），对面就是圣索菲亚。"},
+   {segs:[{m:"walk",v:[[41.0086,28.9802],[41.0087,28.9788],[41.0084,28.9779]]}],text:"出圣索菲亚过马路，水宫入口在电车轨道边。"},
+   {segs:[{m:"walk",v:[[41.0084,28.9779],[41.0089,28.9762],[41.0086,28.9730],[41.0094,28.9702],[41.0107,28.9680]]}],text:"沿电车轨道 Divanyolu 大街往西走。走不动就坐 T1 电车 Sultanahmet → Beyazıt-Kapalıçarşı，2 站。"},
+   {segs:[{m:"walk",v:[[41.0107,28.9680],[41.0130,28.9665],[41.0150,28.9648],[41.0162,28.9639]]}],text:"从大巴扎北门出来，沿小巷往北上坡。"}
+  ],
+  end:"回程：下坡走到 Eminönü（约 15 分钟）坐 T1 电车，或打车。"},
+ {title:"第二天 · 宫殿到亚洲岸",sub:"托普卡帕宫、香料市场、加拉塔、İstiklal，于斯屈达尔看日落",start:"建议 9:00 出发",note:"托普卡帕宫周二闭馆。这天会坐一次缆车和一次渡轮，带好 İstanbulkart。",
+  bounds:{lat0:41.0400,lat1:41.0080,lng0:28.9660,lng1:29.0180},
+  stops:[
+   {id:"topkapi",time:"9:00 开门就进",art:artTopkapi,why:"奥斯曼苏丹住了近 400 年的皇宫，后宫、宝库、海峡景观都在里面。",tip:"约 2,750 TL（含后宫）。至少留 2.5 小时。"},
+   {id:"spice",time:"12:30 左右",art:artSpice,why:"满屋香料、软糖、坚果，入口楼上就是米其林必比登 Pandeli。",tip:"午饭在 Pandeli，或桥头吃鱼面包。买东西先问计价方式。"},
+   {id:"galata",time:"14:30 左右",art:artGalata,why:"中世纪热那亚人修的石塔，是新城最显眼的地标。",tip:"上塔约 30 欧元、排队长；不上也可以，在塔下的小巷喝杯咖啡。"},
+   {id:"istiklal",time:"15:30–17:00",art:artIstiklal,why:"新城最热闹的步行街，红色怀旧电车、老拱廊、教堂和书店。",tip:"小巷里的 Mandabatmaz 喝土耳其咖啡。人多看好包，别跟陌生人去酒吧。"},
+   {id:"maiden",time:"日落（10 月底约 18 点，11–12 月约 17 点）",art:artMaiden,why:"在亚洲岸 Salacak 看少女塔，背后是老城清真寺的剪影，全城最美的日落之一。",tip:"岸边看免费。晚饭在于斯屈达尔的 Kanaat。"}
+  ],
+  legs:[
+   {segs:[{m:"walk",v:[[41.0115,28.9834],[41.0128,28.9812],[41.0142,28.9800],[41.0153,28.9768],[41.0162,28.9730],[41.0166,28.9706]]}],text:"出宫往下穿过 Gülhane 公园，经 Sirkeci 到 Eminönü。也可以在 Gülhane 坐 T1 电车 2 站到 Eminönü。"},
+   {segs:[{m:"walk",v:[[41.0166,28.9706],[41.0180,28.9728],[41.0200,28.9736],[41.0222,28.9744],[41.0240,28.9752],[41.0256,28.9741]]}],text:"走过加拉塔桥（桥上看钓鱼的人和清真寺天际线），过桥后沿台阶小巷上坡。"},
+   {segs:[{m:"walk",v:[[41.0256,28.9741],[41.0283,28.9748],[41.0305,28.9762],[41.0333,28.9776]]}],text:"从 Tünel 广场进入 İstiklal 大街，一路往北走。"},
+   {segs:[{m:"walk",v:[[41.0333,28.9776],[41.0352,28.9815],[41.0369,28.9851]]},{m:"tr",v:[[41.0369,28.9851],[41.0335,28.9925]],label:"F1 缆车 Taksim → Kabataş，约 2 分钟"},{m:"tr",v:[[41.0335,28.9925],[41.0300,29.0040],[41.0265,29.0135]],label:"渡轮 Kabataş → Üsküdar，约 15–20 分钟"},{m:"walk",v:[[41.0265,29.0135],[41.0240,29.0090],[41.0215,29.0060]]}],text:"走到 Taksim 广场，坐 F1 地下缆车到海边的 Kabataş，换渡轮过海到 Üsküdar，再沿海边往南走到 Salacak。都刷 İstanbulkart。"}
+  ],
+  end:"回程：Üsküdar 坐 Marmaray 海底铁路 1 站回 Sirkeci（老城），或坐渡轮回 Eminönü / Karaköy。"}
+];
+const LAND_POLY=null;
+function segLen(v){let d=0;for(let i=1;i<v.length;i++)d+=hav({lat:v[i-1][0],lng:v[i-1][1]},{lat:v[i][0],lng:v[i][1]});return d;}
+function legWalk(L){return L.segs.filter(s=>s.m==="walk").reduce((a,s)=>a+segLen(s.v)*1.15,0);}
+function routeMap(R){
+ const B=R.bounds,W=500;
+ const H=Math.round(W*((B.lat0-B.lat1)*111.2)/((B.lng1-B.lng0)*KMLNG));
+ const pj=(la,ln)=>[(ln-B.lng0)/(B.lng1-B.lng0)*W,(B.lat0-la)/(B.lat0-B.lat1)*H];
+ const path=pts=>pts.map((c,i)=>{const [x,y]=pj(c[0],c[1]);return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}).join(" ");
+ const kmU=W/((B.lng1-B.lng0)*KMLNG);
+ let g=`<rect width="${W}" height="${H}" fill="var(--map-bg)"/><path d="${path(WATER)}Z" fill="var(--river)"/>`;
+ R.legs.forEach(L=>L.segs.forEach(s=>{g+=`<path d="${path(s.v)}" fill="none" stroke="${s.m==="walk"?"var(--ink)":"var(--turq)"}" stroke-width="${s.m==="walk"?3:4}" stroke-dasharray="${s.m==="walk"?"7 6":"2 6"}" stroke-linecap="round" stroke-linejoin="round"/>`;}));
+ const base=ROUTE.indexOf(R)*5;
+ R.stops.forEach((s,i)=>{const p=BY[s.id];const [x,y]=pj(p.lat,p.lng);g+=`<g data-onmap-svg="${s.id}" style="cursor:pointer"><circle cx="${x}" cy="${y}" r="13" fill="var(--red)" stroke="var(--surface)" stroke-width="2.5"/><text x="${x}" y="${y+5}" fill="var(--surface)" font-size="15" font-weight="700" text-anchor="middle" font-family="var(--f-sign)">${base+i+1}</text></g>`;});
+ if(hotel.lat<=B.lat0&&hotel.lat>=B.lat1&&hotel.lng>=B.lng0&&hotel.lng<=B.lng1){const [x,y]=pj(hotel.lat,hotel.lng);g+=`<circle cx="${x}" cy="${y}" r="9" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/><path d="M${x-5} ${y+4}v-5l5-4 5 4v5z" fill="var(--surface)"/>`;}
+ g+=`<g transform="translate(14 ${H-14})"><path d="M0 0h${(kmU*0.5).toFixed(1)}M0 -5v5M${(kmU*0.5).toFixed(1)} -5v5" stroke="var(--map-ink)" stroke-width="1.5" fill="none"/><text x="${(kmU*0.25).toFixed(1)}" y="-7" fill="var(--map-ink)" font-size="11" text-anchor="middle" font-family="var(--f-sign)">500 m</text></g>`;
+ return `<div class="mapwrap"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${R.title}路线示意图">${g}</svg></div><div class="map-legend"><span><i style="border-top:3px dashed var(--ink);height:0;width:18px"></i>步行</span><span><i style="border-top:4px dotted var(--turq);height:0;width:18px"></i>缆车 / 渡轮</span></div>`;
+}
+function renderRoute(){
+ const R=ROUTE[S.day],base=S.day*5;
+ const total=R.legs.reduce((a,L)=>a+legWalk(L),0);
+ const ids=R.stops.map(s=>s.id);
+ const mode=R.legs.some(L=>L.segs.some(s=>s.m!=="walk"))?"transit":"walking";
+ const routeUrl=`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(qOf(BY[ids[0]]))}&destination=${encodeURIComponent(qOf(BY[ids[4]]))}&waypoints=${ids.slice(1,4).map(i=>encodeURIComponent(qOf(BY[i]))).join("%7C")}&travelmode=${mode==="transit"?"walking":"walking"}`;
+ const d0=hav(hotel,BY[ids[0]]);
+ let h=`<div class="day-tabs" role="group" aria-label="选择第几天">${ROUTE.map((r,i)=>`<button class="chip" type="button" data-day="${i}" aria-pressed="${i===S.day}">${esc(r.title)}<small>第 ${i*5+1}–${i*5+5} 站</small></button>`).join("")}</div>`;
+ h+=`<div class="panel route-head"><h3>${esc(R.title)}：不走回头路</h3>
+  <p class="note">${esc(R.sub)}。${esc(R.note)}</p>
+  <div class="route-sum"><span>步行约 <b>${total.toFixed(1)} km</b></span>${mode==="transit"?`<span>另有 <b>1</b> 段缆车 + <b>1</b> 段渡轮</span>`:""}<span>${esc(R.start)}</span></div>
+  ${routeMap(R)}
+  <div class="actions"><a class="btn primary" href="${routeUrl}" target="_blank" rel="noopener">在 Google 地图打开全程</a><a class="btn" href="${navUrl(BY[ids[0]],d0<2.5?"walking":"transit")}" target="_blank" rel="noopener">从酒店到第 ${base+1} 站（${fmtD(d0)}）</a></div>
+  <p class="note">插画为示意，非实景照片。</p></div><div>`;
+ R.stops.forEach((s,i)=>{
+  const p=BY[s.id];
+  h+=`<article class="stop-card">${s.art()}
+   <div class="stop-title"><span class="stop-no">${base+i+1}</span><span class="sign">${esc(p.name)}</span>${favBtn(p)}</div>
+   <div class="stop-body"><p class="zh">${esc(p.zh)} · <span class="stop-time">${esc(s.time)}</span></p>
+   <p>${esc(s.why)}</p>
+   <dl class="facts"><div><dt>门票</dt><dd>${esc(p.price)}</dd></div><div><dt>提醒</dt><dd>${esc(s.tip)}</dd></div></dl>
+   <div class="actions"><button class="btn" type="button" data-onmap="${p.id}">离酒店多远</button></div></div></article>`;
+  if(i<R.legs.length){const L=R.legs[i],d=legWalk(L),m=Math.max(3,Math.round(d/4.5*60));
+   const tr=L.segs.filter(s=>s.m!=="walk");
+   h+=`<div class="leg${tr.length?" tr":""}"><span>步行 <b>${m} 分钟</b> · <b>${fmtD(d)}</b>${tr.map(s=>` · ${esc(s.label)}`).join("")}</span><span>${esc(L.text)}</span></div>`;}
+  else h+=`<div class="leg"><span><b>当天结束</b></span><span>${esc(R.end)}</span></div>`;
+ });
+ h+=`</div>`;
+ $("#sightList").innerHTML=h;
+}
+
+/* ---------- Top 10 trap ranking ---------- */
+const TOP10 = [
+ {id:"ayasofya",st:5,v:"ok",l:"必去",why:"近 1,500 年历史的建筑奇迹。",trap:"2024 年起外国游客收费（约 25–27.5 欧元），只能走二楼。门口说能“免排队”的导游别理；周五中午到 14:00 关闭。"},
+ {id:"bluemosque",st:5,v:"ok",l:"必去",why:"免费，伊斯坦布尔的标志。",trap:"免费参观，有人卖“门票”或“快速通道”都是骗局。头巾门口免费借；礼拜时间进不去。"},
+ {id:"topkapi",st:5,v:"ok",l:"必去",why:"奥斯曼帝国的权力中心。",trap:"周二闭馆，很多人白跑。后宫要单独看清票种；只在官方售票处或官网买票。"},
+ {id:"cistern",st:4,v:"ok",l:"值得",why:"幽暗的石柱森林，雨天也能去。",trap:"排队长，开门时去；夜场票更贵，不一定值。"},
+ {id:"bazaar",st:4,v:"warn",l:"值得逛，要砍价",why:"几百年的老市场，逛起来很有意思。",trap:"开价可能是成交价的好几倍。主动带路的人会把你带去地毯店；周日关门。"},
+ {id:"bosphorus",st:4,v:"warn",l:"值得，别找拉客的",why:"欧亚两岸一次看完。",trap:"Eminönü 码头拉客的游船可能只在港口绕半小时。去官方窗口买，或者直接坐通勤渡轮，一次刷卡的钱。"},
+ {id:"galata",st:3,v:"warn",l:"挑时间去",why:"新城地标，塔顶看全城。",trap:"约 30 欧元，排队可能一小时以上，塔顶平台窄而挤。开门时或很晚去；不上塔，苏莱曼尼耶后院也能免费看风景。"},
+ {id:"istiklal",st:3,v:"warn",l:"白天逛",why:"最热闹的步行街。",trap:"“借个火”搭讪后带你去酒吧，账单巨额；人挤的地方小偷多。晚上只去自己选的店。"},
+ {id:"istiklalx",st:1,v:"skip",l:"别去来路不明的酒吧",why:"夜生活集中的后巷。",trap:"2025 年伊斯坦布尔发生假酒（甲醇）中毒，至少 160 人死亡，其中有外国游客。凌晨 1 点后的后巷、便宜来路不明的烈酒都别碰。"},
+ {id:"sultanx",st:0,v:"skip",l:"只看不吃",why:"广场边的景观餐厅位置好。",trap:"门口拉客、游客价菜单、没点的面包和水也收钱、找零“忘记”。吃饭去 Karaköy、Kadıköy 的 lokanta。"}
+];
+function stars(n){return `<span class="st" aria-label="必去指数 ${n} 星（满分 5）">${"★".repeat(n)}<i>${"★".repeat(5-n)}</i></span>`;}
+function renderTop10(){
+ let h=`<p class="lead">小红书上最常见的 10 个地方，按必去程度从高到低排，每个都写了最容易踩的雷。</p><div class="top10">`;
+ TOP10.forEach((t,i)=>{const p=BY[t.id];const x=p.type==="x";
+  h+=`<article class="t10"><span class="rk ${t.st<3?"low":""}">${i+1}</span>
+   <div class="hd"><h3>${esc(p.zh)}</h3><span class="verdict ${VCLS[t.v]}">${esc(t.l)}</span></div>
+   <div class="bd">${stars(t.st)}<p>${esc(t.why)}</p><p class="trap"><b>排雷：</b>${esc(t.trap)}</p>${x?"":distBlock(p)}
+   ${x?"":`<div class="actions"><button class="btn" type="button" data-onmap="${p.id}">地图上看</button></div>`}</div></article>`;});
+ h+=`</div>`;
+ $("#sightList").innerHTML=h;
+}
+
+/* ---------- renderers ---------- */
+function chipRow(el,types,cur,key){
+ el.innerHTML=Object.entries(types).map(([k,v])=>`<button class="chip" type="button" data-${key}="${k}" aria-pressed="${k===cur}">${v}</button>`).join("");
+}
+function sortNear(list,on){return on?list.slice().sort((a,b)=>hav(hotel,a)-hav(hotel,b)):list;}
+function renderFood(){
+ chipRow($("#foodChips"),FOOD_TYPES,S.food,"food");
+ $("#foodNear").checked=S.foodNear;
+ $("#foodNear").parentElement.hidden=S.food==="hype";
+ if(S.food==="hype"){$("#foodList").innerHTML=`<p class="lead">小红书上常见的店和吃法，逐个说值不值。</p>`+HYPE.map(hypeRow).join("");return;}
+ const list=P.filter(p=>p.kind==="food"&&p.type!=="hype"&&(S.food==="all"||p.type===S.food));
+ $("#foodList").innerHTML=sortNear(list,S.foodNear).map(foodCard).join("");
+}
+function renderSights(){
+ chipRow($("#sightChips"),SIGHT_TYPES,S.sight,"sight");
+ $("#sightNear").checked=S.sightNear;
+ $("#sightNearWrap").hidden=["photo","plan","top10","trap10"].includes(S.sight);
+ if(S.sight==="top10"){renderRoute();return;}
+ if(S.sight==="trap10"){renderTop10();return;}
+ if(S.sight==="photo"){
+  $("#sightList").innerHTML=`<p class="lead">人少又好看的机位优先。点名字看离酒店多远。</p><div class="rows">`+PHOTO.map(([t,x,id])=>{const p=BY[id],d=hav(hotel,p),a=advise(d,hotel,p);
+   return `<button class="row ${a.cls}" type="button" data-onmap="${id}"><span class="rn">${esc(t)}<small style="text-transform:none;font-family:var(--f-body);letter-spacing:0">${esc(x)}</small></span><span class="rd">${fmtD(d)}<small>${a.label}</small></span></button>`}).join("")+`</div>`;
+  return;
+ }
+ if(S.sight==="plan"){
+  $("#sightList").innerHTML=`<p class="lead">按区域排 4–5 天，前两天就是 Top 10 路线。每站右边是离你酒店的距离。</p>`+DAYS.map(day=>{
+   const ids=day.stops.map(s=>s[0]);
+   let route="";
+   if(!day.noroute){
+    const last=BY[ids[ids.length-1]],mid=ids.slice(0,-1).map(i=>encodeURIComponent(qOf(BY[i]))).join("%7C");
+    route=`<div class="actions"><a class="btn" href="https://www.google.com/maps/dir/?api=1&origin=${hotel.lat},${hotel.lng}&destination=${encodeURIComponent(qOf(last))}&waypoints=${mid}&travelmode=transit" target="_blank" rel="noopener">在 Google 地图看这天的路线</a></div>`;
+   }
+   return `<div class="day"><div class="day-h"><span class="dn">${day.n}</span><h3>${esc(day.t)}</h3></div>
+    <ol class="stops">${day.stops.map(([id,txt])=>`<li><span>${esc(txt)}</span><span class="sd">${fmtD(hav(hotel,BY[id]))}</span></li>`).join("")}</ol>
+    ${day.note?`<p class="note">${esc(day.note)}</p>`:""}${route}</div>`;}).join("");
+  return;
+ }
+ const list=P.filter(p=>p.kind==="sight"&&p.type===S.sight);
+ $("#sightList").innerHTML=sortNear(list,S.sightNear).map(sightCard).join("");
+}
+
+/* ---------- hotel ---------- */
+function renderHotel(){
+ $("#hotelChip").classList.toggle("example",!!hotel.example);
+ $("#hotelChipText").textContent=hotel.example?"示例位置 · 设置酒店":(hotel.label||"我的酒店");
+ $("#hotelName").textContent=hotel.example?`示例：${hotel.label}`:(hotel.label||"我的酒店");
+ $("#hotelCoord").textContent=(hotel.example?"换成你的酒店后，全站距离会自动更新 · ":"")+`${hotel.lat.toFixed(5)}, ${hotel.lng.toFixed(5)} · 离${CENTER_NAME} ${fmtD(hav(hotel,CENTER))}`;
+ $("#presets").innerHTML=PRESETS.map((p,i)=>`<button class="chip" type="button" data-preset="${i}">${p.label}</button>`).join("");
+}
+function setHotel(h,msg){hotel=h;store.set("ist-hotel",h);showMsg(msg||"已保存。全站距离已按新位置更新。",hav(h,CENTER)>45?"warn":"ok",h);renderAll();}
+function showMsg(text,kind,h){
+ const m=$("#hotelMsg");let t=text;
+ if(h&&hav(h,CENTER)>45) t+=` 注意：这个位置离${CENTER_NAME} ${fmtD(hav(h,CENTER))}，确认没粘错？`;
+ m.textContent=t;m.className="msg "+kind;m.hidden=false;
+}
+
+/* ---------- map ---------- */
+const MAP={lat0:41.0580,lat1:40.9800,lng0:28.9300,lng1:29.0500,W:500};
+const KMLNG=111.32*Math.cos(41.02*Math.PI/180);
+MAP.H=Math.round(MAP.W*((MAP.lat0-MAP.lat1)*111.2)/((MAP.lng1-MAP.lng0)*KMLNG));
+const proj=(lat,lng)=>[(lng-MAP.lng0)/(MAP.lng1-MAP.lng0)*MAP.W,(MAP.lat0-lat)/(MAP.lat0-MAP.lat1)*MAP.H];
+const inMap=p=>p.lat<=MAP.lat0&&p.lat>=MAP.lat1&&p.lng>=MAP.lng0&&p.lng<=MAP.lng1;
+// water: Bosphorus + Golden Horn + Marmara (schematic)
+const WATER=[[41.080,29.040],[41.060,29.034],[41.047,29.027],[41.041,29.007],[41.035,28.995],[41.028,28.986],[41.023,28.978],[41.022,28.974],
+ [41.026,28.968],[41.031,28.962],[41.038,28.950],[41.045,28.937],[41.052,28.928],[41.060,28.915],[41.056,28.912],
+ [41.047,28.926],[41.040,28.939],[41.032,28.951],[41.025,28.961],[41.019,28.968],[41.017,28.974],[41.015,28.982],[41.013,28.988],
+ [41.008,28.986],[41.004,28.983],[41.001,28.973],[40.999,28.960],[40.997,28.945],[40.995,28.920],[40.960,28.910],[40.960,29.030],
+ [40.978,29.027],[40.985,29.024],[40.991,29.021],[40.998,29.018],[41.005,29.012],[41.012,29.009],[41.019,29.005],[41.023,29.008],[41.027,29.012],
+ [41.032,29.022],[41.037,29.031],[41.045,29.043],[41.055,29.052],[41.080,29.060]];
+const LABELS=[["老城 Sultanahmet",41.0055,28.9640],["贝伊奥卢 Beyoğlu",41.0400,28.9760],["贝西克塔什",41.0480,29.0010],["于斯屈达尔",41.0300,29.0300],["卡德柯伊",40.9860,29.0380],["金角湾",41.0350,28.9560],["博斯普鲁斯海峡",41.0300,29.0080],["马尔马拉海",40.9880,28.9800]];
+function renderMap(){
+ const svg=$("#map"),W=MAP.W,H=MAP.H;
+ svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+ const pathOf=pts=>pts.map((c,i)=>{const [x,y]=proj(c[0],c[1]);return (i?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}).join(" ");
+ let out=`<rect width="${W}" height="${H}" fill="var(--map-bg)"/><path d="${pathOf(WATER)}Z" fill="var(--river)"/>`;
+ out+=LABELS.map(([t,la,ln])=>{const [x,y]=proj(la,ln);const rot=t==="博斯普鲁斯海峡"?`transform="rotate(-55 ${x} ${y})"`:(t==="金角湾"?`transform="rotate(-40 ${x} ${y})"`:"");return `<text x="${x}" y="${y}" fill="var(--map-ink)" font-size="${["博斯普鲁斯海峡","金角湾","马尔马拉海"].includes(t)?11:12.5}" text-anchor="middle" font-family="var(--f-body)" ${rot}>${t}</text>`}).join("");
+ const km=W/((MAP.lng1-MAP.lng0)*KMLNG);
+ out+=`<g transform="translate(14 ${H-16})"><path d="M0 0h${km.toFixed(1)}M0 -5v5M${km.toFixed(1)} -5v5" stroke="var(--map-ink)" stroke-width="1.5" fill="none"/><text x="${(km/2).toFixed(1)}" y="-7" fill="var(--map-ink)" font-size="11" text-anchor="middle" font-family="var(--f-sign)">1 km</text></g>`;
+ const pts=P.filter(p=>p.kind!=="transit"&&p.type!=="x"&&inMap(p)&&p.id!=="bosphorus");
+ const sel=S.sel?(BY[S.sel]||S.sel):null;
+ if(sel&&inMap(hotel)&&inMap(sel)){
+  const [x1,y1]=proj(hotel.lat,hotel.lng),[x2,y2]=proj(sel.lat,sel.lng);
+  out+=`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="var(--ink)" stroke-width="2" stroke-dasharray="6 5"/>`;
+  const mx=(x1+x2)/2,my=(y1+y2)/2;
+  out+=`<rect x="${mx-30}" y="${my-12}" width="60" height="22" rx="6" fill="var(--ink)"/><text x="${mx}" y="${my+4}" fill="var(--bg)" font-size="14" font-weight="700" text-anchor="middle" font-family="var(--f-sign)">${fmtD(hav(hotel,sel))}</text>`;
+ }
+ out+=pts.map(p=>{const [x,y]=proj(p.lat,p.lng);const on=S.sel===p.id,fav=favs.has(p.id);
+  const mark=p.kind==="food"?`<circle cx="${x}" cy="${y}" r="${on?7.5:4.5}" fill="var(--red)" stroke="var(--surface)" stroke-width="${fav?2.5:1.5}"/>`
+   :`<rect x="${x-(on?7:4.5)}" y="${y-(on?7:4.5)}" width="${on?14:9}" height="${on?14:9}" fill="var(--blue)" stroke="var(--surface)" stroke-width="${fav?2.5:1.5}"/>`;
+  return `<g data-id="${p.id}" style="cursor:pointer"><title>${esc(p.zh)} ${esc(p.name)}</title><circle cx="${x}" cy="${y}" r="12" fill="transparent"/>${mark}</g>`}).join("");
+ if(sel&&!sel.id&&inMap(sel)){const [x,y]=proj(sel.lat,sel.lng);out+=`<path d="M${x} ${y-9}L${x+8} ${y}L${x} ${y+9}L${x-8} ${y}Z" fill="var(--warn)" stroke="var(--surface)" stroke-width="1.5"/>`;}
+ if(S.pending){const [x,y]=proj(S.pending.lat,S.pending.lng);out+=`<circle cx="${x}" cy="${y}" r="10" fill="none" stroke="var(--ink)" stroke-width="2" stroke-dasharray="3 3"/>`;}
+ if(inMap(hotel)){const [x,y]=proj(hotel.lat,hotel.lng);
+  out+=`<g pointer-events="none"><circle cx="${x}" cy="${y}" r="10" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"/><path d="M${x-5} ${y+4}v-5l5-4 5 4v5z" fill="var(--surface)"/><text x="${x+14}" y="${y+4}" font-size="12" font-weight="700" fill="var(--ink)" font-family="var(--f-body)" paint-order="stroke" stroke="var(--map-bg)" stroke-width="3">酒店</text></g>`;}
+ svg.innerHTML=out;
+ $("#offmap").textContent=inMap(hotel)?"":"你的酒店在示意图范围外，距离照常计算";
+ const pb=$("#pending");
+ if(S.pending){pb.hidden=false;pb.innerHTML=`<span>把酒店设在这里？离${CENTER_NAME} ${fmtD(hav(S.pending,CENTER))}</span><span class="actions"><button class="btn" type="button" id="pendOk">设为酒店</button><button class="btn ghost" type="button" id="pendNo">取消</button></span>`;}
+ else pb.hidden=true;
+ const sc=$("#selCard");
+ if(!sel){sc.innerHTML=`<p class="note">还没选目的地。点地图上的点，或在下面搜索。</p>`;return;}
+ if(sel.id){
+  sc.innerHTML=`<div class="place-top"><span class="sign">${esc(sel.name)}</span>${favBtn(sel)}</div><p class="zh">${esc(sel.zh)}</p>${addrLine(sel)}${distBlock(sel)}${actions(sel,true)}`;
+ } else {
+  const d=hav(hotel,sel),a=advise(d,hotel,sel);
+  sc.innerHTML=`<p class="zh">自定义目的地 · ${sel.lat.toFixed(5)}, ${sel.lng.toFixed(5)}</p><div class="dist ${a.cls}"><span class="km">${fmtD(d)}</span><span class="how"><b>${a.label}</b><span>${a.note}</span></span></div><div class="actions"><a class="btn primary" href="${navUrlCoord(sel,"walking")}" target="_blank" rel="noopener">步行导航</a><a class="btn" href="${navUrlCoord(sel,"transit")}" target="_blank" rel="noopener">公交导航</a></div>`;
+ }
+}
+function svgPoint(e){const svg=$("#map"),pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse());}
+
+/* ---------- search ---------- */
+const DIST_TYPES={all:"全部",fav:"想去清单",food:"餐厅",sight:"景点",transit:"码头车站机场"};
+function renderResults(){
+ chipRow($("#distChips"),DIST_TYPES,S.dist,"dist");
+ const q=norm(S.q);
+ const list=P.filter(p=>{
+  if(p.type==="x")return false;
+  if(S.dist==="fav"&&!favs.has(p.id))return false;
+  if(S.dist==="food"&&p.kind!=="food")return false;
+  if(S.dist==="sight"&&p.kind!=="sight")return false;
+  if(S.dist==="transit"&&p.kind!=="transit")return false;
+  if(q&&!norm(p.name+" "+p.zh+" "+p.area+" "+(p.street||"")+" "+(p.order||"")+" "+(p.q||"")).includes(q))return false;
+  return true;}).sort((a,b)=>hav(hotel,a)-hav(hotel,b));
+ if(!list.length){$("#results").innerHTML=`<p class="note" style="padding:12px 14px">${S.dist==="fav"&&!favs.size?"想去清单还是空的。在美食、景点卡片上点星号就能加进来。":"没找到。试试中文名或土耳其语名，或者用下面的“清单外的地方”。"}</p>`;return;}
+ $("#results").innerHTML=list.map(p=>{const d=hav(hotel,p),a=advise(d,hotel,p);
+  return `<button class="row ${a.cls}" type="button" data-onmap="${p.id}"><span class="rn">${esc(p.zh)}<small>${esc(p.name)}</small></span><span class="rd">${fmtD(d)}<small>${a.label}</small></span></button>`}).join("");
+}
+
+/* ---------- tabs ---------- */
+function setTab(t){
+ S.tab=t;store.set("ist-tab",t);
+ document.querySelectorAll(".tabbtn").forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+ ["food","sights","dist","go","notes"].forEach(k=>$("#tab-"+k).hidden=k!==t);
+ window.scrollTo(0,0);
+}
+function renderAll(){renderHotel();renderFood();renderSights();renderMap();renderResults();}
+
+/* ---------- events ---------- */
+document.addEventListener("click",e=>{
+ const g=e.target.closest("[data-onmap-svg]");
+ if(g){S.sel=g.getAttribute("data-onmap-svg");S.pending=null;setTab("dist");renderMap();$("#map").scrollIntoView({behavior:"smooth",block:"center"});return;}
+ const t=e.target.closest("button");
+ if(!t)return;
+ if(t.dataset.tab){setTab(t.dataset.tab);return;}
+ if(t.id==="hotelChip"){setTab("dist");return;}
+ if(t.dataset.food){S.food=t.dataset.food;renderFood();return;}
+ if(t.dataset.sight){S.sight=t.dataset.sight;renderSights();return;}
+ if(t.dataset.day){S.day=+t.dataset.day;renderSights();return;}
+ if(t.dataset.dist){S.dist=t.dataset.dist;renderResults();return;}
+ if(t.dataset.fav){toggleFav(t.dataset.fav);return;}
+ if(t.dataset.onmap){S.sel=t.dataset.onmap;S.pending=null;if(S.tab!=="dist")setTab("dist");renderMap();$("#map").scrollIntoView({behavior:"smooth",block:"center"});return;}
+ if(t.dataset.preset){const p=PRESETS[+t.dataset.preset];setHotel({lat:p.lat,lng:p.lng,label:p.label+"（大致位置）"},`已设为“${p.label}”的大致位置。订好酒店后再换成准确坐标。`);return;}
+ if(t.dataset.jump){document.getElementById(t.dataset.jump).scrollIntoView({behavior:"smooth",block:"start"});return;}
+ if(t.dataset.copy){const v=t.dataset.copy;const done=()=>{t.textContent="已复制";setTimeout(()=>t.textContent="复制",1500)};
+  try{navigator.clipboard.writeText(v).then(done,()=>selectNear(t));}catch(err){selectNear(t);}return;}
+ if(t.id==="hotelSave"){
+  const raw=$("#hotelInput").value,c=parseCoords(raw);
+  if(!c){showMsg(parseError(raw),"err");return;}
+  setHotel({lat:c.lat,lng:c.lng,label:$("#hotelLabel").value.trim()||"我的酒店"});return;}
+ if(t.id==="pendOk"){const p=S.pending;S.pending=null;setHotel({lat:p.lat,lng:p.lng,label:"地图点选位置"},"已把酒店设在你点的位置。示意图有误差，订好酒店后建议换成准确坐标。");return;}
+ if(t.id==="pendNo"){S.pending=null;renderMap();return;}
+ if(t.id==="customGo"){
+  const raw=$("#customInput").value,c=parseCoords(raw),o=$("#customOut");
+  if(!c){o.innerHTML=`<div class="msg err">${esc(parseError(raw))}</div>`;return;}
+  S.sel=c;S.pending=null;o.innerHTML="";renderMap();$("#map").scrollIntoView({behavior:"smooth",block:"center"});return;}
+});
+function selectNear(btn){const pn=btn.parentElement.querySelector(".pn");if(!pn)return;const r=document.createRange();r.selectNodeContents(pn);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="已选中，可长按复制";}
+
+$("#map").addEventListener("click",e=>{
+ const g=e.target.closest("[data-id]");
+ if(g){S.sel=g.dataset.id;S.pending=null;renderMap();return;}
+ const p=svgPoint(e);
+ S.pending={lat:MAP.lat0-p.y/MAP.H*(MAP.lat0-MAP.lat1),lng:MAP.lng0+p.x/MAP.W*(MAP.lng1-MAP.lng0)};renderMap();
+});
+$("#foodNear").addEventListener("change",e=>{S.foodNear=e.target.checked;renderFood();});
+$("#sightNear").addEventListener("change",e=>{S.sightNear=e.target.checked;renderSights();});
+$("#q").addEventListener("input",e=>{S.q=e.target.value;renderResults();});
+
+/* ---------- offline (PWA) ---------- */
+function offlineStatus(text,kind){const el=$("#offlineStatus");if(el){el.textContent=text;el.className="msg "+kind;}}
+(function(){
+ const standalone=(window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone===true;
+ if(!("serviceWorker" in navigator)){offlineStatus("这个浏览器不能离线保存。请用 iPhone 的 Safari 或安卓的 Chrome 打开。","err");return;}
+ navigator.serviceWorker.register("./sw.js")
+  .then(()=>navigator.serviceWorker.ready)
+  .then(()=>offlineStatus(standalone?"已保存到手机，没网也能打开。":"已保存。添加到主屏幕后，从图标打开一次，就可以离线使用。","ok"))
+  .catch(()=>offlineStatus("离线保存没成功。请确认是用 Safari 或 Chrome 打开的 https 网址。","err"));
+})();
+
+/* ---------- boot ---------- */
+setTab(S.tab);
+renderAll();
+</script>
+
+</body>
+</html>
